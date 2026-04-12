@@ -3,151 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XatSpace - Alex</title>
+<title>XatSpace Ultra</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    font-family:'Poppins',sans-serif;
+    background:black;
+    color:white;
+    overflow-x:hidden;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
-    background: black;
-    color: white;
+/* CURSOR NEON */
+.cursor{
+    width:15px;height:15px;
+    border-radius:50%;
+    position:fixed;
+    background:#00c6ff;
+    pointer-events:none;
+    box-shadow:0 0 20px #00c6ff,0 0 40px #ff00cc;
 }
 
-/* FUNDO ANIMADO */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
+/* FUNDO */
+canvas{position:fixed;top:0;left:0;z-index:-1}
+
+/* TELA */
+#welcome{
+    position:fixed;
+    width:100%;height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:black;
+    z-index:999;
+    animation:fadeOut 2s forwards;
+    animation-delay:3s;
 }
 
-/* TELA INICIAL */
-#welcome {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, #000, #020024);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-    animation: fadeOut 2s ease forwards;
-    animation-delay: 3s;
+#welcome h1{
+    font-size:2.5rem;
+    color:#fff;
+    text-shadow:0 0 10px #00c6ff,0 0 20px #ff00cc;
+    animation:glitch 1s infinite alternate;
 }
 
-#welcome h1 {
-    font-size: 2.5rem;
-    background: linear-gradient(90deg, #00c6ff, #ff00cc);
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: zoom 2s ease;
+@keyframes glitch{
+    from{transform:translate(1px,1px);}
+    to{transform:translate(-1px,-1px);}
 }
 
-@keyframes zoom {
-    from {transform: scale(0.5); opacity: 0;}
-    to {transform: scale(1); opacity: 1;}
-}
-
-@keyframes fadeOut {
-    to {opacity: 0; visibility: hidden;}
+@keyframes fadeOut{
+    to{opacity:0;visibility:hidden;}
 }
 
 /* NAV */
-nav {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    padding: 20px;
+nav{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    padding:20px;
 }
 
-nav button {
-    padding: 10px 20px;
-    border-radius: 25px;
-    border: none;
-    cursor: pointer;
-    background: linear-gradient(45deg, #00c6ff, #ff00cc);
-    color: white;
-    font-weight: bold;
-    transition: 0.3s;
-    box-shadow: 0 0 10px #00c6ff;
+nav button{
+    padding:10px 20px;
+    border-radius:25px;
+    border:none;
+    cursor:pointer;
+    background:linear-gradient(45deg,#00c6ff,#ff00cc);
+    color:white;
+    transition:0.3s;
 }
 
-nav button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px #ff00cc;
+nav button.active{
+    box-shadow:0 0 20px #ff00cc;
+    transform:scale(1.1);
 }
 
 /* SEÇÕES */
-.section {
-    display: none;
-    padding: 40px 20px;
-    text-align: center;
-    animation: fade 0.5s;
-}
-
-.active {
-    display: block;
-}
-
-@keyframes fade {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-
-/* PERFIL */
-.profile-pic {
-    width: 140px;
-    border-radius: 50%;
-    border: 3px solid #00c6ff;
-    margin-bottom: 15px;
-}
-
-/* CARD */
-.card {
-    background: rgba(255,255,255,0.05);
-    padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-}
+.section{display:none;padding:40px;text-align:center;}
+.active-section{display:block;}
 
 /* GALERIA */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
+.gallery img{
+    width:150px;
+    margin:10px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
 }
+.gallery img:hover{transform:scale(1.1);}
 
-.gallery img {
-    width: 100%;
-    border-radius: 10px;
-    transition: 0.3s;
+/* LIGHTBOX */
+#lightbox{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.9);
+    display:none;
+    justify-content:center;
+    align-items:center;
 }
-
-.gallery img:hover {
-    transform: scale(1.1);
+#lightbox img{
+    max-width:90%;
+    border-radius:10px;
 }
 
 /* PLAYER */
-.music-btn {
-    padding: 12px 20px;
-    border-radius: 20px;
-    border: none;
-    background: linear-gradient(45deg, #ff00cc, #00c6ff);
-    cursor: pointer;
-    color: white;
+.music-card{
+    max-width:300px;
+    margin:auto;
+    padding:20px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.05);
+    box-shadow:0 0 20px #00c6ff;
 }
 
-.player {
-    margin-top: 20px;
-    display: none;
+/* VISUALIZER */
+.bars{
+    display:flex;
+    justify-content:center;
+    gap:3px;
+    margin:10px 0;
+}
+.bar{
+    width:5px;
+    height:20px;
+    background:#00c6ff;
+    animation:beat 1s infinite ease-in-out;
+}
+.bar:nth-child(2){animation-delay:0.2s;}
+.bar:nth-child(3){animation-delay:0.4s;}
+.bar:nth-child(4){animation-delay:0.6s;}
+
+@keyframes beat{
+    0%,100%{height:10px;}
+    50%{height:30px;}
 }
 
 </style>
@@ -155,113 +147,115 @@ nav button:hover {
 
 <body>
 
-<!-- FUNDO -->
+<div class="cursor" id="cursor"></div>
 <canvas id="bg"></canvas>
 
-<!-- TELA INICIAL -->
 <div id="welcome">
     <h1>Bem vindos ao meu xatspace</h1>
 </div>
 
-<!-- MENU -->
 <nav>
-    <button onclick="showSection('home')">Início</button>
-    <button onclick="showSection('profile')">Perfil</button>
-    <button onclick="showSection('gallery')">Fotos</button>
-    <button onclick="showSection('music')">Música</button>
+<button onclick="show('home',this)" class="active">Início</button>
+<button onclick="show('profile',this)">Perfil</button>
+<button onclick="show('gallery',this)">Fotos</button>
+<button onclick="show('music',this)">Música</button>
 </nav>
 
-<!-- HOME -->
-<div id="home" class="section active">
-    <img src="https://picsum.photos/300" class="profile-pic">
-    <h1>Alex Rivera</h1>
-    <p>25 anos • Leão</p>
-    <p>"Vivendo intensamente."</p>
+<div id="home" class="section active-section">
+<h1>Alex Rivera</h1>
+<p>Perfil ultra moderno</p>
 </div>
 
-<!-- PERFIL -->
 <div id="profile" class="section">
-    <div class="card">
-        <h2>Sobre Mim</h2>
-        <p>Sou apaixonado por música, design e criatividade.</p>
-        <p>Gosto de criar experiências visuais únicas e modernas.</p>
-    </div>
+<p>Perfil completo futurista 🚀</p>
 </div>
 
-<!-- GALERIA -->
-<div id="gallery" class="section">
-    <h2>Galeria</h2>
-    <div class="gallery">
-        <img src="https://picsum.photos/300?1">
-        <img src="https://picsum.photos/300?2">
-        <img src="https://picsum.photos/300?3">
-        <img src="https://picsum.photos/300?4">
-    </div>
+<div id="gallery" class="section gallery">
+<img src="https://picsum.photos/300?1" onclick="openImg(this.src)">
+<img src="https://picsum.photos/300?2" onclick="openImg(this.src)">
+<img src="https://picsum.photos/300?3" onclick="openImg(this.src)">
 </div>
 
-<!-- MUSICA -->
+<div id="lightbox" onclick="this.style.display='none'">
+<img id="lightImg">
+</div>
+
 <div id="music" class="section">
-    <h2>Música</h2>
-    <button class="music-btn" onclick="togglePlayer()">Abrir Player 🎧</button>
-    <div id="player" class="player">
-        <audio controls>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-        </audio>
-    </div>
+<div class="music-card">
+<button onclick="play()">▶</button>
+<div class="bars">
+<div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+</div>
+<audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+</div>
 </div>
 
 <script>
-// TROCA DE SEÇÕES
-function showSection(id) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+// MENU
+function show(id,btn){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active-section'));
+document.getElementById(id).classList.add('active-section');
+
+document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+}
+
+// LIGHTBOX
+function openImg(src){
+document.getElementById("lightbox").style.display="flex";
+document.getElementById("lightImg").src=src;
 }
 
 // PLAYER
-function togglePlayer() {
-    const p = document.getElementById("player");
-    p.style.display = p.style.display === "block" ? "none" : "block";
+function play(){
+const a=document.getElementById("audio");
+a.paused?a.play():a.pause();
 }
 
-// FUNDO ANIMADO
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
+// CURSOR
+document.addEventListener("mousemove",e=>{
+const c=document.getElementById("cursor");
+c.style.left=e.clientX+"px";
+c.style.top=e.clientY+"px";
+});
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// FUNDO COM LINHAS
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-let particles = [];
-
-for (let i = 0; i < 80; i++) {
-    particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 2,
-        dx: Math.random() - 0.5,
-        dy: Math.random() - 0.5
-    });
+let p=[];
+for(let i=0;i<60;i++){
+p.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,dx:Math.random()-0.5,dy:Math.random()-0.5});
 }
 
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#00c6ff";
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
+p.forEach(a=>{
+a.x+=a.dx;a.y+=a.dy;
 
-        p.x += p.dx;
-        p.y += p.dy;
+ctx.beginPath();
+ctx.arc(a.x,a.y,2,0,Math.PI*2);
+ctx.fillStyle="#00c6ff";
+ctx.fill();
 
-        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-    });
-
-    requestAnimationFrame(animate);
+p.forEach(b=>{
+let dist=Math.hypot(a.x-b.x,a.y-b.y);
+if(dist<100){
+ctx.strokeStyle="rgba(0,198,255,0.1)";
+ctx.beginPath();
+ctx.moveTo(a.x,a.y);
+ctx.lineTo(b.x,b.y);
+ctx.stroke();
 }
+});
+});
 
-animate();
+requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>
