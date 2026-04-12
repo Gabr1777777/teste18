@@ -2,194 +2,92 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <title>Sistema de Publicação</title>
     <style>
-        /* Reset e Fundo */
-        body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #050505, #1a1a2e);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 95%;
-            max-width: 1000px;
-            margin-top: 20px;
-        }
-
-        /* Topo / Header */
-        .header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1877f2; /* Azul Facebook */
-            text-shadow: 0 0 10px #1877f2;
-        }
-
-        /* Layout em Colunas */
-        .main-content {
-            display: grid;
-            grid-template-columns: 250px 1fr 250px;
-            gap: 20px;
-        }
-
-        /* Blocos Laterais e Feed */
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .profile-pic {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid #1877f2;
-            margin: 0 auto 10px;
-            display: block;
-            background: #333;
-        }
-
-        .user-name {
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            display: block;
-        }
-
-        /* Estilo do Feed de Postagem */
-        .post-input {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            padding: 12px;
-            border-radius: 20px;
-            color: white;
-            margin-bottom: 10px;
-            outline: none;
-        }
-
-        .post-btn {
-            background: #1877f2;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            transition: 0.3s;
-        }
-
-        .post-btn:hover {
-            background: #1565c0;
-            box-shadow: 0 0 15px #1877f2;
-        }
-
-        /* Amigos e Links */
-        .list-item {
-            display: flex;
-            align-items: center;
-            padding: 8px;
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; padding: 20px; }
+        
+        /* Container Principal */
+        .post-container {
+            background: white;
+            padding: 20px;
             border-radius: 8px;
-            transition: 0.3s;
-            cursor: pointer;
-            text-decoration: none;
-            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin-bottom: 20px;
         }
 
-        .list-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background: #31a24c;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        /* Animação Estrela (Sutil) */
-        .star-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
+        input, textarea {
             width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
         }
+
+        button {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover { background-color: #166fe5; }
+
+        /* Estilo das Publicações */
+        .feed { max-width: 500px; }
+        .publicacao {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .nome-usuario { font-weight: bold; color: #1c1e21; margin-bottom: 5px; }
+        .texto-publicacao { color: #4b4f56; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <div class="logo">xatBook</div>
-        <div style="background:rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px;">
-            🔍 Pesquisar no xat
-        </div>
+    <div class="post-container">
+        <input type="text" id="nomeUsuario" placeholder="Seu Nome:">
+        <textarea id="textoPost" rows="3" placeholder="No que você está pensando?"></textarea>
+        <button onclick="publicar()">Publicar</button>
     </div>
 
-    <div class="main-content">
-        <div class="left-aside">
-            <div class="card">
-                <img src="https://via.placeholder.com/100" class="profile-pic" alt="User">
-                <span class="user-name">Seu Nome</span>
-                <hr style="border: 0.5px solid rgba(255,255,255,0.1); margin: 15px 0;">
-                <a href="#" class="list-item">👥 Amigos</a>
-                <a href="#" class="list-item">📅 Eventos</a>
-                <a href="#" class="list-item">⭐ Favoritos</a>
-            </div>
-        </div>
+    <div id="feed" class="feed"></div>
 
-        <div class="feed">
-            <div class="card">
-                <input type="text" class="post-input" placeholder="No que você está pensando?">
-                <button class="post-btn">Publicar</button>
-            </div>
+    <script>
+        function publicar() {
+            const nome = document.getElementById('nomeUsuario').value;
+            const texto = document.getElementById('textoPost').value;
+            const feed = document.getElementById('feed');
 
-            <div class="card">
-                <div style="display:flex; align-items:center; margin-bottom:10px;">
-                    <div style="width:40px; height:40px; background:#444; border-radius:50%; margin-right:10px;"></div>
-                    <div>
-                        <b style="display:block;">Amigo Exemplo</b>
-                        <small style="color:#aaa;">há 2 horas</small>
-                    </div>
-                </div>
-                <p>Confira meu novo layout para o xatspace! 🚀</p>
-                <div style="width:100%; height:200px; background:rgba(255,255,255,0.1); border-radius:8px;"></div>
-            </div>
-        </div>
+            if (nome === "" || texto === "") {
+                alert("Por favor, preencha o nome e a mensagem!");
+                return;
+            }
 
-        <div class="right-aside">
-            <div class="card">
-                <h4 style="margin-top:0;">Contatos Online</h4>
-                <div class="list-item"><div class="status-dot"></div> Usuário 1</div>
-                <div class="list-item"><div class="status-dot"></div> Usuário 2</div>
-                <div class="list-item"><div class="status-dot"></div> Usuário 3</div>
-            </div>
-        </div>
-    </div>
-</div>
+            // Criar o elemento da publicação
+            const novaPubli = document.createElement('div');
+            novaPubli.className = 'publicacao';
 
+            novaPubli.innerHTML = `
+                <div class="nome-usuario">${nome}</div>
+                <div class="texto-publicacao">${texto}</div>
+            `;
+
+            // Adicionar ao topo do feed
+            feed.prepend(novaPubli);
+
+            // Limpar campos
+            document.getElementById('textoPost').value = "";
+        }
+    </script>
 </body>
 </html>
