@@ -3,57 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Assistência Técnica</title>
+<title>Assistência Técnica Premium</title>
 
 <style>
-body {
-    font-family: Arial;
+* {
     margin: 0;
-    background: #0f172a;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+body {
+    background: linear-gradient(135deg, #020617, #0f172a);
     color: white;
 }
 
+/* HEADER */
 header {
     display: flex;
     justify-content: space-between;
-    padding: 15px;
-    background: #020617;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    background: rgba(0,0,0,0.4);
+    position: sticky;
+    top: 0;
 }
 
-header h1 {
+.logo {
+    font-size: 22px;
+    font-weight: bold;
     color: #22c55e;
 }
 
 .btn {
-    background: #22c55e;
-    padding: 10px 15px;
+    background: linear-gradient(45deg, #22c55e, #4ade80);
+    padding: 10px 18px;
+    border-radius: 8px;
     color: black;
     text-decoration: none;
-    border-radius: 5px;
     font-weight: bold;
+    box-shadow: 0 0 10px #22c55e;
 }
 
+/* BANNER */
 .banner {
     text-align: center;
-    padding: 60px 20px;
+    padding: 80px 20px;
 }
 
-.banner h2 {
-    font-size: 30px;
+.banner h1 {
+    font-size: 38px;
 }
 
+.banner span {
+    color: #22c55e;
+}
+
+.banner p {
+    margin: 15px 0;
+    opacity: 0.8;
+}
+
+/* SERVIÇOS */
 .servicos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 40px;
 }
 
 .card {
-    background: #020617;
+    background: rgba(255,255,255,0.05);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 15px;
     text-align: center;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px #22c55e;
 }
 
 .card img {
@@ -65,15 +95,69 @@ header h1 {
     margin-top: 10px;
 }
 
+/* DIFERENCIAIS */
 .diferenciais {
+    padding: 50px;
     text-align: center;
-    padding: 30px;
 }
 
+.diferenciais h2 {
+    margin-bottom: 20px;
+}
+
+.lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+/* PROCESSO */
+.processo {
+    padding: 50px;
+    text-align: center;
+}
+
+.step {
+    margin: 15px 0;
+}
+
+/* AVALIAÇÕES */
+.avaliacoes {
+    padding: 50px;
+    text-align: center;
+}
+
+.review {
+    margin: 15px;
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* CTA FINAL */
+.cta {
+    text-align: center;
+    padding: 60px;
+}
+
+/* FOOTER */
 footer {
-    background: #020617;
     text-align: center;
     padding: 20px;
+    background: rgba(0,0,0,0.6);
+}
+
+/* WHATSAPP FLOAT */
+.whatsapp {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #22c55e;
+    padding: 15px;
+    border-radius: 50%;
+    color: black;
+    font-weight: bold;
+    box-shadow: 0 0 15px #22c55e;
 }
 </style>
 </head>
@@ -81,51 +165,86 @@ footer {
 <body>
 
 <header>
-    <h1>Sua Assistência</h1>
+    <div class="logo">⚡ TechFix Pro</div>
     <a href="#" class="btn">WhatsApp</a>
 </header>
 
 <section class="banner">
-    <h2>Assistência Técnica Especializada em Celulares</h2>
-    <p>Troca de tela, bateria e consertos em geral</p>
-    <a href="#" class="btn">Fale Agora</a>
+    <h1>Assistência Técnica <span>Especializada</span></h1>
+    <p>Conserto rápido, peças de qualidade e garantia em todos os serviços</p>
+    <a href="#" class="btn">Solicitar Orçamento</a>
 </section>
 
 <section class="servicos">
 
 <div class="card">
-    <img src="https://via.placeholder.com/300x200">
+    <img src="https://images.unsplash.com/photo-1510552776732-01accde7c4c9">
     <h3>Troca de Tela</h3>
 </div>
 
 <div class="card">
-    <img src="https://via.placeholder.com/300x200">
+    <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505">
     <h3>Troca de Bateria</h3>
 </div>
 
 <div class="card">
-    <img src="https://via.placeholder.com/300x200">
+    <img src="https://images.unsplash.com/photo-1581091870627-3f1c3d49c3a0">
     <h3>Conserto de Placa</h3>
 </div>
 
 <div class="card">
-    <img src="https://via.placeholder.com/300x200">
+    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475">
     <h3>Celular Molhado</h3>
+</div>
+
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3">
+    <h3>Problemas de Carga</h3>
+</div>
+
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c">
+    <h3>Atualização e Formatação</h3>
 </div>
 
 </section>
 
 <section class="diferenciais">
-    <h2>Por que escolher a gente?</h2>
-    <p>✔ Atendimento rápido</p>
-    <p>✔ Garantia no serviço</p>
-    <p>✔ Técnicos especializados</p>
+    <h2>Por que escolher a TechFix?</h2>
+    <div class="lista">
+        <p>⚡ Serviço rápido no mesmo dia</p>
+        <p>🔒 Garantia em todos serviços</p>
+        <p>📱 Especialistas em todas marcas</p>
+        <p>🚗 Atendimento leva e traz</p>
+    </div>
+</section>
+
+<section class="processo">
+    <h2>Como funciona?</h2>
+    <p class="step">1️⃣ Você chama no WhatsApp</p>
+    <p class="step">2️⃣ Retiramos seu aparelho</p>
+    <p class="step">3️⃣ Fazemos o conserto</p>
+    <p class="step">4️⃣ Entregamos pronto</p>
+</section>
+
+<section class="avaliacoes">
+    <h2>Clientes satisfeitos</h2>
+    <div class="review">⭐⭐⭐⭐⭐ “Rápido e confiável!”</div>
+    <div class="review">⭐⭐⭐⭐⭐ “Meu celular ficou novo”</div>
+</section>
+
+<section class="cta">
+    <h2>Seu celular quebrou?</h2>
+    <p>Fale com um especialista agora mesmo</p>
+    <a href="#" class="btn">Chamar no WhatsApp</a>
 </section>
 
 <footer>
-    <p>Contato: (11) 99999-9999</p>
-    <p>Instagram: @sualoja</p>
+    <p>📞 (11) 99999-9999</p>
+    <p>📍 São Paulo - SP</p>
 </footer>
+
+<a href="#" class="whatsapp">💬</a>
 
 </body>
 </html>
