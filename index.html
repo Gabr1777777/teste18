@@ -9,156 +9,81 @@
         :root {
             --primary: #00d4ff;
             --secondary: #6e00ff;
-            --bg-dark: #050505;
-            --card-bg: #121214;
-            --text-main: #ffffff;
-            --text-dim: #a1a1a1;
-            --whatsapp-green: #25D366;
+            --bg: #050505;
+            --card: #121214;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg); color: var(--white); line-height: 1.6; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            background-image: radial-gradient(circle at top right, #1a1a2e, #050505);
-        }
-
-        /* Header */
+        /* HEADER */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 8%;
-            background: rgba(5, 5, 5, 0.9);
-            backdrop-filter: blur(12px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #222;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 8%; background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px); position: fixed; width: 100%; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
-        .logo { font-size: 1.6rem; font-weight: 800; letter-spacing: -1px; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
         .logo span { color: var(--primary); }
 
-        .btn-contact {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-        }
-
-        .btn-contact:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5); }
-
-        /* Hero Section */
+        /* HERO SECTION */
         .hero {
-            padding: 180px 8% 100px;
-            text-align: center;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 180px 8% 100px; text-align: center;
+            background: radial-gradient(circle at top right, rgba(110, 0, 255, 0.15), transparent),
+                        radial-gradient(circle at bottom left, rgba(0, 212, 255, 0.1), transparent);
         }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -2px; }
+        .hero p { color: #aaa; max-width: 600px; margin: 0 auto 30px; font-size: 1.1rem; }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
+        /* GRID DE SERVIÇOS */
+        .services {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; padding: 50px 8%; max-width: 1250px; margin: 0 auto;
         }
-
-        .hero p { font-size: 1.2rem; color: var(--text-dim); max-width: 800px; margin: 0 auto 30px; }
-
-        /* Grid de Serviços */
-        .services-grid {
-            padding: 60px 8%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
         .card {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid #222;
-            transition: 0.4s;
-            text-align: left;
-            position: relative;
-            overflow: hidden;
+            background: var(--card); border-radius: 24px; border: 1px solid #222;
+            overflow: hidden; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .card:hover { transform: translateY(-12px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2); }
+        .card img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #222; }
+        .card-body { padding: 25px; text-align: center; }
+        .card-body h3 { margin-bottom: 10px; color: var(--primary); }
 
-        .card:hover {
-            border-color: var(--primary);
-            transform: translateY(-10px);
-            background: rgba(18, 18, 20, 0.8);
+        /* SEÇÃO LEVA E TRÁS (BANNER GRANDE) */
+        .leva-tras {
+            margin: 50px 8%; background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px; display: flex; align-items: center; flex-wrap: wrap; overflow: hidden;
         }
+        .leva-tras img { width: 55%; min-width: 300px; filter: brightness(0.8); }
+        .lt-content { padding: 50px; flex: 1; }
+        .lt-content h2 { font-size: 2.5rem; margin-bottom: 15px; color: var(--primary); }
 
-        .card h3 { color: var(--primary); margin-bottom: 15px; font-size: 1.4rem; }
-        .card p { color: var(--text-dim); margin-bottom: 20px; }
-
-        .btn-card {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        /* BOTÕES */
+        .btn {
+            padding: 14px 30px; border-radius: 50px; text-decoration: none; font-weight: 600;
+            display: inline-block; transition: 0.3s; cursor: pointer; border: none;
         }
-
-        /* Seção Leva e Trás */
-        .delivery-info {
-            background: linear-gradient(90deg, rgba(110, 0, 255, 0.1), rgba(0, 212, 255, 0.1));
-            margin: 60px 8%;
-            padding: 60px;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.05);
-            text-align: center;
-        }
-
-        .delivery-info h2 { font-size: 2.5rem; margin-bottom: 15px; }
-        .badge { background: #ffcc00; color: #000; padding: 5px 15px; border-radius: 5px; font-weight: bold; margin-bottom: 10px; display: inline-block; }
-
-        /* Footer */
-        footer {
-            padding: 60px 8% 40px;
-            text-align: center;
-            background: #0a0a0c;
-            border-top: 1px solid #222;
-        }
-
-        .footer-info { margin-bottom: 20px; color: var(--text-dim); }
+        .btn-main { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: white; }
+        .btn-main:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4); }
+        
+        /* FOOTER */
+        footer { padding: 60px 8% 30px; border-top: 1px solid #222; text-align: center; background: #080808; }
+        .contact-info { margin-bottom: 30px; font-size: 1.1rem; color: #888; }
         .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--whatsapp-green);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            z-index: 999;
-            transition: 0.3s;
+            position: fixed; bottom: 30px; right: 30px; background: #25d366;
+            width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; box-shadow: 0 5px 20px rgba(0,0,0,0.5); z-index: 2000;
         }
-        .whatsapp-float:hover { transform: scale(1.1); }
 
-        /* Responsividade */
+        /* ANIMAÇÕES SUTIS */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .hero, .card { animation: fadeIn 1s ease-out; }
+
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; }
-            header { padding: 15px 5%; }
-            .delivery-info { padding: 30px; }
+            .hero h1 { font-size: 2.5rem; }
+            .leva-tras img { width: 100%; }
         }
     </style>
 </head>
@@ -166,10 +91,71 @@
 
     <header>
         <div class="logo">Multi<span>Tech</span></div>
-        <a href="https://wa.me/5511981338017?text=Olá,%20vi%20o%20site%20e%20gostaria%20de%20um%20orçamento" class="btn-contact">Fale Conosco</a>
+        <a href="https://wa.me/5511981338017" class="btn btn-main">Fale Conosco</a>
     </header>
 
     <section class="hero">
-        <div class="badge">ASSISTÊNCIA TÉCNICA ESPECIALIZADA</div>
-        <h1>Seu celular novo de novo.</h1>
-        <p>Arrumamos tela quebrada, baterias, reparos em placa e muito mais. Atendemos Samsung, Apple, Xiaomi
+        <h1>Excelência em Reparos Mobile</h1>
+        <p>Assistência técnica especializada com laboratório de ponta. Samsung, Apple, Xiaomi, Motorola e LG com o melhor preço da região.</p>
+        <a href="https://wa.me/5511981338017" class="btn btn-main" style="padding: 20px 50px; font-size: 1.2rem;">Solicitar Orçamento Grátis</a>
+    </section>
+
+    <div class="services">
+        <div class="card">
+            <img src="foto_tela_quebrada.jpg" alt="Troca de Tela">
+            <div class="card-body">
+                <h3>Troca de Tela</h3>
+                <p>Na troca da tela, ganhe película e capinha de brinde! Garantia de 1 mês.</p>
+                <a href="https://wa.me/5511981338017?text=Quero%20trocar%20minha%20tela" class="btn btn-main">Chamar no Whats</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="foto_compra_celular.jpg" alt="Compra de Celulares">
+            <div class="card-body">
+                <h3>Compro Quebrados</h3>
+                <p>Pagamos sinal de vida! Traga seu aparelho antigo e saia com dinheiro no bolso.</p>
+                <a href="https://wa.me/5511981338017?text=Quero%20vender%20meu%20celular" class="btn btn-main">Avaliar Agora</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="foto_bateria.jpg" alt="Troca de Bateria">
+            <div class="card-body">
+                <h3>Problemas de Carga</h3>
+                <p>Bateria descarregando rápido ou conector ruim? Resolvemos na hora para você.</p>
+                <a href="https://wa.me/5511981338017?text=Problema%20com%20bateria" class="btn btn-main">Consertar</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="leva-tras">
+        <img src="foto_carros.jpg" alt="Sistema Leva e Trás">
+        <div class="lt-content">
+            <h2>Sistema Leva e Trás</h2>
+            <p>Buscamos seu aparelho no conforto da sua casa e entregamos pronto! Segurança e comodidade para você.</p>
+            <p style="color: var(--primary); font-weight: bold; margin-bottom: 20px;">🚩 Exclusivo para Zona Sul</p>
+            <a href="https://wa.me/5511981338017" class="btn btn-main">Agendar Retirada</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="contact-info">
+            <p>📍 Av. Carlos Lacerda, 2878 - Jd. Pirajussara</p>
+            <p>📱 (11) 98133-8017</p>
+        </div>
+        <p style="opacity: 0.4; font-size: 0.8rem;">Acesso Protegido - Propriedade de Gabr (1777777). © 2026 MultiTech.</p>
+    </footer>
+
+    <a href="https://wa.me/5511981338017" class="whatsapp-float">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35" alt="WhatsApp">
+    </a>
+
+    <script>
+        // Proteção contra Cópia (Ctrl+U e Clique Direito)
+        document.onkeydown = function(e) {
+            if (e.ctrlKey && (e.keyCode === 85)) return false;
+        };
+    </script>
+</body>
+</html>
