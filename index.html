@@ -1,246 +1,195 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XatSpace INSANO</title>
+    <meta charset="UTF-8">
+    <style>
+        /* Reset e Fundo */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #050505, #1a1a2e);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+        .container {
+            width: 95%;
+            max-width: 1000px;
+            margin-top: 20px;
+        }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-    font-family:'Poppins',sans-serif;
-    background:black;
-    color:white;
-    overflow-x:hidden;
-}
+        /* Topo / Header */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-/* LOGIN */
-#login{
-position:fixed;
-width:100%;height:100%;
-background:black;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:9999;
-flex-direction:column;
-}
-#login input{
-padding:10px;margin:10px;border-radius:10px;border:none;
-}
-#login button{
-padding:10px 20px;
-border:none;
-background:#00c6ff;
-border-radius:10px;
-cursor:pointer;
-}
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1877f2; /* Azul Facebook */
+            text-shadow: 0 0 10px #1877f2;
+        }
 
-/* CURSOR */
-.cursor{
-width:15px;height:15px;border-radius:50%;
-position:fixed;
-background:#00c6ff;
-pointer-events:none;
-box-shadow:0 0 20px #00c6ff,0 0 40px #ff00cc;
-}
+        /* Layout em Colunas */
+        .main-content {
+            display: grid;
+            grid-template-columns: 250px 1fr 250px;
+            gap: 20px;
+        }
 
-/* FUNDO */
-canvas{position:fixed;top:0;left:0;z-index:-1}
+        /* Blocos Laterais e Feed */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
 
-/* NAV */
-nav{
-display:flex;
-justify-content:center;
-gap:15px;
-padding:20px;
-}
-nav button{
-padding:10px 20px;
-border-radius:25px;
-border:none;
-background:linear-gradient(45deg,#00c6ff,#ff00cc);
-color:white;
-cursor:pointer;
-}
-nav button.active{box-shadow:0 0 20px #ff00cc;}
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #1877f2;
+            margin: 0 auto 10px;
+            display: block;
+            background: #333;
+        }
 
-/* SEÇÕES */
-.section{display:none;padding:40px;text-align:center;}
-.active-section{display:block;}
+        .user-name {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+        }
 
-/* GLITCH */
-.glitch{
-font-size:2rem;
-position:relative;
-}
-.glitch::before,.glitch::after{
-content:attr(data-text);
-position:absolute;
-left:0;
-}
-.glitch::before{color:#f0f;animation:glitch 1s infinite;}
-.glitch::after{color:#0ff;animation:glitch 1s infinite reverse;}
+        /* Estilo do Feed de Postagem */
+        .post-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 12px;
+            border-radius: 20px;
+            color: white;
+            margin-bottom: 10px;
+            outline: none;
+        }
 
-@keyframes glitch{
-0%{transform:translate(1px,-1px);}
-50%{transform:translate(-1px,1px);}
-100%{transform:translate(1px,1px);}
-}
+        .post-btn {
+            background: #1877f2;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: 0.3s;
+        }
 
-/* GALERIA */
-.gallery img{
-width:150px;margin:10px;border-radius:10px;
-cursor:pointer;transition:.3s;
-}
-.gallery img:hover{transform:scale(1.1);}
+        .post-btn:hover {
+            background: #1565c0;
+            box-shadow: 0 0 15px #1877f2;
+        }
 
-/* LIGHTBOX */
-#lightbox{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,0.9);
-display:none;justify-content:center;align-items:center;
-}
-#lightbox img{max-width:90%;border-radius:10px;}
+        /* Amigos e Links */
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
 
-/* PLAYER */
-.music-card{
-max-width:300px;margin:auto;padding:20px;
-background:rgba(255,255,255,0.05);
-border-radius:20px;
-box-shadow:0 0 20px #00c6ff;
-}
-.bars{display:flex;justify-content:center;gap:3px;margin:10px;}
-.bar{width:5px;height:20px;background:#00c6ff;animation:beat 1s infinite;}
-@keyframes beat{50%{height:30px;}}
+        .list-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
 
-/* CHAT */
-.chat{
-max-width:300px;margin:auto;
-background:rgba(255,255,255,0.05);
-padding:10px;border-radius:10px;
-}
-.msg{font-size:12px;margin:5px;}
-</style>
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #31a24c;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* Animação Estrela (Sutil) */
+        .star-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- LOGIN -->
-<div id="login">
-<h2>Entrar no XatSpace</h2>
-<input placeholder="Usuário">
-<input placeholder="Senha" type="password">
-<button onclick="enter()">Entrar</button>
+<div class="container">
+    <div class="header">
+        <div class="logo">xatBook</div>
+        <div style="background:rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px;">
+            🔍 Pesquisar no xat
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="left-aside">
+            <div class="card">
+                <img src="https://via.placeholder.com/100" class="profile-pic" alt="User">
+                <span class="user-name">Seu Nome</span>
+                <hr style="border: 0.5px solid rgba(255,255,255,0.1); margin: 15px 0;">
+                <a href="#" class="list-item">👥 Amigos</a>
+                <a href="#" class="list-item">📅 Eventos</a>
+                <a href="#" class="list-item">⭐ Favoritos</a>
+            </div>
+        </div>
+
+        <div class="feed">
+            <div class="card">
+                <input type="text" class="post-input" placeholder="No que você está pensando?">
+                <button class="post-btn">Publicar</button>
+            </div>
+
+            <div class="card">
+                <div style="display:flex; align-items:center; margin-bottom:10px;">
+                    <div style="width:40px; height:40px; background:#444; border-radius:50%; margin-right:10px;"></div>
+                    <div>
+                        <b style="display:block;">Amigo Exemplo</b>
+                        <small style="color:#aaa;">há 2 horas</small>
+                    </div>
+                </div>
+                <p>Confira meu novo layout para o xatspace! 🚀</p>
+                <div style="width:100%; height:200px; background:rgba(255,255,255,0.1); border-radius:8px;"></div>
+            </div>
+        </div>
+
+        <div class="right-aside">
+            <div class="card">
+                <h4 style="margin-top:0;">Contatos Online</h4>
+                <div class="list-item"><div class="status-dot"></div> Usuário 1</div>
+                <div class="list-item"><div class="status-dot"></div> Usuário 2</div>
+                <div class="list-item"><div class="status-dot"></div> Usuário 3</div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="cursor" id="cursor"></div>
-<canvas id="bg"></canvas>
-
-<nav>
-<button onclick="show('home',this)" class="active">Início</button>
-<button onclick="show('gallery',this)">Fotos</button>
-<button onclick="show('music',this)">Música</button>
-<button onclick="show('chat',this)">Chat</button>
-</nav>
-
-<div id="home" class="section active-section">
-<h1 class="glitch" data-text="Bem vindos ao meu xatspace">Bem vindos ao meu xatspace</h1>
-<p>Perfil INSANO 🚀</p>
-</div>
-
-<div id="gallery" class="section gallery">
-<img src="https://picsum.photos/300?1" onclick="openImg(this.src)">
-<img src="https://picsum.photos/300?2" onclick="openImg(this.src)">
-</div>
-
-<div id="lightbox" onclick="this.style.display='none'">
-<img id="lightImg">
-</div>
-
-<div id="music" class="section">
-<div class="music-card">
-<button onclick="play()">▶</button>
-<div class="bars">
-<div class="bar"></div><div class="bar"></div><div class="bar"></div>
-</div>
-<audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-</div>
-</div>
-
-<div id="chat" class="section">
-<div class="chat" id="chatBox"></div>
-</div>
-
-<script>
-// LOGIN
-function enter(){
-document.getElementById("login").style.display="none";
-}
-
-// MENU
-function show(id,btn){
-document.querySelectorAll('.section').forEach(s=>s.classList.remove('active-section'));
-document.getElementById(id).classList.add('active-section');
-document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-}
-
-// CURSOR
-document.addEventListener("mousemove",e=>{
-cursor.style.left=e.clientX+"px";
-cursor.style.top=e.clientY+"px";
-});
-
-// LIGHTBOX
-function openImg(src){
-lightbox.style.display="flex";
-lightImg.src=src;
-}
-
-// PLAYER
-function play(){
-audio.paused?audio.play():audio.pause();
-}
-
-// CHAT FAKE
-const msgs=["Olá 👋","Bem vindo!","Curtiu o perfil?","🔥🔥🔥"];
-let i=0;
-setInterval(()=>{
-if(i<msgs.length){
-let d=document.createElement("div");
-d.className="msg";
-d.innerText=msgs[i++];
-chatBox.appendChild(d);
-}
-},1500);
-
-// FUNDO
-const canvas=document.getElementById("bg");
-const ctx=canvas.getContext("2d");
-canvas.width=innerWidth;
-canvas.height=innerHeight;
-
-let p=[];
-for(let i=0;i<50;i++){
-p.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,dx:Math.random()-0.5,dy:Math.random()-0.5});
-}
-
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-p.forEach(a=>{
-a.x+=a.dx;a.y+=a.dy;
-ctx.beginPath();
-ctx.arc(a.x,a.y,2,0,Math.PI*2);
-ctx.fillStyle="#00c6ff";
-ctx.fill();
-});
-requestAnimationFrame(draw);
-}
-draw();
-</script>
 
 </body>
 </html>
