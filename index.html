@@ -3,240 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XatBook - Gabriel</title>
-    
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
+    <title>MultiTech | Soluções Digitais</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* --- ESTILO HIGH-TECH GABRIEL --- */
+        /* Variáveis de Cores */
+        :root {
+            --primary: #00d4ff;
+            --secondary: #6e00ff;
+            --bg-dark: #050505;
+            --card-bg: #121214;
+            --text-main: #ffffff;
+            --text-dim: #a1a1a1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: #0a0a0a;
-            background-image: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #050505 100%);
-            color: white; margin: 0; display: flex; justify-content: center; padding: 20px;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .main-container { display: grid; grid-template-columns: 300px 1fr; gap: 20px; width: 100%; max-width: 1000px; }
-        
-        .box { 
-            background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 15px; padding: 20px; margin-bottom: 20px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #222;
         }
 
-        .brand-footer { 
-            position: fixed; bottom: 20px; right: 20px; font-size: 24px; font-weight: bold; 
-            color: #0088ff; text-shadow: 0 0 10px rgba(0, 136, 255, 0.5); z-index: 3000; 
-            pointer-events: none; font-family: 'Arial Black', sans-serif;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
         }
 
-        /* --- PERFIL --- */
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; border: 4px solid #00d9ff; object-fit: cover; transition: 0.3s; cursor: pointer; }
-        .profile-photo:hover { box-shadow: 0 0 20px #00d9ff; transform: scale(1.02); }
-        .id-text { color: #aaa; font-size: 14px; margin-top: 5px; font-family: monospace; }
-
-        /* --- BOTÕES --- */
-        .btn {
-            background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px; border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold;
-            display: block; margin-bottom: 10px; width: 100%; transition: 0.3s; text-decoration: none; box-sizing: border-box;
+        .logo span {
+            color: var(--primary);
         }
-        .btn:hover { background: #00d9ff; color: #0a0a0a; box-shadow: 0 0 15px #00d9ff; transform: scale(1.02); }
-        .btn.primary { background: #0088ff; border-color: #0088ff; }
-        .btn.danger { background: #ff3232; border-color: #ff3232; }
 
-        .submenu { display: none; flex-direction: column; gap: 5px; padding: 10px; background: rgba(0, 0, 0, 0.3); border-radius: 8px; margin-bottom: 10px; }
-        .btn-sub { font-size: 13px; padding: 8px; background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); text-decoration: none; color: white; border-radius: 5px; text-align: center; }
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
 
-        /* --- GALERIA E ZOOM --- */
-        .gallery-container { display: none; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .gallery-item { width: 100%; aspect-ratio: 1/1; border-radius: 10px; background-size: cover; background-position: center; border: 2px solid rgba(0, 217, 255, 0.3); cursor: pointer; transition: 0.3s; }
-        .gallery-item:hover { border-color: #00d9ff; }
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
 
-        .zoom-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; z-index: 4000; cursor: pointer; backdrop-filter: blur(10px); }
-        .zoom-overlay img { max-width: 90%; max-height: 90%; border-radius: 10px; border: 3px solid #00d9ff; box-shadow: 0 0 30px rgba(0, 217, 255, 0.4); }
+        /* Hero Section */
+        .hero {
+            padding: 150px 10% 80px;
+            text-align: center;
+            background: radial-gradient(circle at top, #1a1a2e 0%, #050505 70%);
+        }
 
-        /* --- INTERAÇÕES --- */
-        .friend-item, .publicacao { background: rgba(255,255,255,0.08); padding: 12px; border-radius: 5px; margin-bottom: 8px; border-left: 3px solid #00d9ff; cursor: pointer; transition: 0.2s; }
-        .friend-item:hover, .publicacao:hover { background: rgba(0, 217, 255, 0.15); }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: #111; padding: 25px; border-radius: 15px; border: 1px solid #00d9ff; width: 320px; text-align: center; box-shadow: 0 0 20px rgba(0, 217, 255, 0.3); }
-        input, textarea { width: 100%; padding: 10px; margin-bottom: 15px; background: #000; border: 1px solid #333; color: white; border-radius: 5px; box-sizing: border-box; outline: none; }
-        input:focus { border-color: #00d9ff; }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Cards de Recursos */
+        .features {
+            padding: 60px 10%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #222;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 10%;
+            text-align: center;
+            border-top: 1px solid #222;
+            margin-top: 50px;
+            color: var(--text-dim);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            header { padding: 15px 5%; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="brand-footer">XatBook</div>
+    <header>
+        <div class="logo">Multi<span>Tech</span></div>
+        <a href="#" class="cta-button">Começar Agora</a>
+    </header>
 
-    <div id="zoomOverlay" class="zoom-overlay" onclick="this.style.display='none'">
-        <img id="imgZoomed" src="">
-    </div>
+    <section class="hero">
+        <h1>Transforme sua produtividade digital</h1>
+        <p>A MultiTech oferece as ferramentas mais avançadas para você criar, gerenciar e escalar seus projetos com design de alta performance.</p>
+        <a href="#" class="cta-button" style="padding: 15px 40px; font-size: 1.1rem;">Quero Acesso Exclusivo</a>
+    </section>
 
-    <div id="modalAmigo" class="modal-overlay">
-        <div class="modal-content">
-            <h3 style="color: #00d9ff;">Novo Amigo (ADM)</h3>
-            <input type="text" id="nomeAmigoInput" placeholder="Nome do Amigo">
-            <input type="password" id="senhaAdmAdd" placeholder="Senha do Administrador">
-            <button class="btn primary" onclick="confirmarAdicionarAmigo()">Salvar Globalmente</button>
-            <button class="btn" onclick="fecharModal('modalAmigo')">Sair</button>
+    <section class="features">
+        <div class="card">
+            <h3>Design Ágil</h3>
+            <p>Interface pensada para fluxo rápido de trabalho, sem distrações e com máxima entrega.</p>
         </div>
-    </div>
-
-    <div id="modalRemover" class="modal-overlay">
-        <div class="modal-content">
-            <h3 id="tituloRemover" style="color: #ff3232;">Painel de Controle</h3>
-            <p>Confirme a senha para excluir este item globalmente:</p>
-            <input type="password" id="senhaAdmDel" placeholder="Senha ADM">
-            <button class="btn danger" id="btnConfirmarRemover">Sim, Excluir</button>
-            <button class="btn" onclick="fecharModal('modalRemover')">Cancelar</button>
+        <div class="card">
+            <h3>Componentes Pro</h3>
+            <p>Biblioteca completa de assets prontos para uso em qualquer tipo de projeto digital.</p>
         </div>
-    </div>
-
-    <div class="main-container">
-        <div class="profile-sidebar">
-            <div class="box" style="text-align: center;">
-                <img src="https://i.imgur.com/Z8OtVir.jpeg" class="profile-photo" onclick="openZoomManual(this.src)">
-                <p style="font-weight: bold; font-size: 20px; margin: 10px 0 0;">Gabriel</p>
-                <div class="id-text">ID: 1777777</div>
-            </div>
-            
-            <div class="box">
-                <button class="btn" onclick="voltarInicio()">Início</button>
-                <button class="btn primary" onclick="abrirModal('modalAmigo')">Adicionar Amigo</button>
-                <button class="btn" onclick="toggleGallery()">Minhas Fotos</button>
-                <button class="btn" onclick="toggleComunidade()">Comunidades xat</button>
-                <div id="menuComunidade" class="submenu">
-                    <a href="https://xat.com/TUGA" target="_blank" class="btn btn-sub">Xat TUGA</a>
-                    <a href="https://xat.com/butecopremium" target="_blank" class="btn btn-sub">Xat Buteco</a>
-                </div>
-            </div>
+        <div class="card">
+            <h3>Suporte Premium</h3>
+            <p>Nossa equipe técnica está pronta para ajudar você a configurar e otimizar seus resultados.</p>
         </div>
+    </section>
 
-        <div class="main-content">
-            <div id="galeriaDireita" class="box gallery-container">
-                <div class="gallery-item" style="background-image: url('https://i.imgur.com/MXo7l6I.jpeg');" onclick="openZoom(this)"></div>
-                <div class="gallery-item" style="background-image: url('https://i.imgur.com/h3pyflh.jpeg');" onclick="openZoom(this)"></div>
-                <div class="gallery-item" style="background-image: url('https://i.imgur.com/aeyBhFj.jpeg');" onclick="openZoom(this)"></div>
-            </div>
+    <footer>
+        <p>&copy; 2026 MultiTech - Todos os direitos reservados.</p>
+    </footer>
 
-            <div class="box">
-                <h3 style="color:#00d9ff; margin-top:0;">Amigos (Global)</h3>
-                <div id="listaAmigos">Conectando ao Firebase...</div>
-            </div>
-
-            <div class="box">
-                <p style="font-weight: bold; margin-top: 0;">Mural Público</p>
-                <input type="text" id="nomeUsuario" placeholder="Seu Nome">
-                <textarea id="textoPost" rows="3" placeholder="Deixe seu recado aqui..."></textarea>
-                <button class="btn primary" onclick="publicar()">Publicar para Todos</button>
-            </div>
-
-            <div id="feed">Aguardando mensagens...</div>
-        </div>
-    </div>
-
-    <script>
-        // --- CONFIGURAÇÃO FIREBASE ---
-        const firebaseConfig = {
-            apiKey: "AIzaSyAPzQGTRTaUv9mUFvyCw96F4bULF0zOEig",
-            authDomain: "xatbook.firebaseapp.com",
-            databaseURL: "https://xatbook-default-rtdb.firebaseio.com",
-            projectId: "xatbook",
-            storageBucket: "xatbook.firebasestorage.app",
-            appId: "1:798387721124:web:0f6d0302863f225bc8a731"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // --- SEGURANÇA ---
-        const SENHA_ADM = "1009";
-        let idRemover = "";
-        let tipoRemover = "";
-
-        // --- FUNÇÕES DE INTERFACE ---
-        function abrirModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function fecharModal(id) { document.getElementById(id).style.display = 'none'; }
-        function voltarInicio() { document.getElementById('galeriaDireita').style.display = 'none'; window.scrollTo(0,0); }
-        function toggleGallery() { const g = document.getElementById('galeriaDireita'); g.style.display = (g.style.display === 'grid') ? 'none' : 'grid'; }
-        function toggleComunidade() { const m = document.getElementById('menuComunidade'); m.style.display = (m.style.display === 'flex') ? 'none' : 'flex'; }
-        
-        // ZOOM (FECHA AO CLICAR NA FOTO OU NO LADO)
-        function openZoom(el) { document.getElementById('imgZoomed').src = el.style.backgroundImage.slice(5, -2); document.getElementById('zoomOverlay').style.display = 'flex'; }
-        function openZoomManual(url) { document.getElementById('imgZoomed').src = url; document.getElementById('zoomOverlay').style.display = 'flex'; }
-
-        // --- LÓGICA DE DADOS GLOBAIS ---
-
-        function confirmarAdicionarAmigo() {
-            const nome = document.getElementById('nomeAmigoInput').value;
-            const senha = document.getElementById('senhaAdmAdd').value;
-            if(senha !== SENHA_ADM) return alert("Senha incorreta!");
-            if(nome) {
-                db.ref('amigos').push(nome);
-                fecharModal('modalAmigo');
-                document.getElementById('nomeAmigoInput').value = "";
-                document.getElementById('senhaAdmAdd').value = "";
-            }
-        }
-
-        function publicar() {
-            const n = document.getElementById('nomeUsuario').value;
-            const t = document.getElementById('textoPost').value;
-            if(!n || !t) return alert("Preencha todos os campos!");
-            db.ref('posts').push({ nome: n, texto: t, data: Date.now() });
-            document.getElementById('textoPost').value = "";
-        }
-
-        function prepararExclusao(id, tipo) {
-            idRemover = id;
-            tipoRemover = tipo;
-            abrirModal('modalRemover');
-        }
-
-        document.getElementById('btnConfirmarRemover').onclick = function() {
-            const senha = document.getElementById('senhaAdmDel').value;
-            if(senha !== SENHA_ADM) return alert("Senha de Administrador incorreta!");
-            db.ref(tipoRemover + '/' + idRemover).remove();
-            fecharModal('modalRemover');
-            document.getElementById('senhaAdmDel').value = "";
-        };
-
-        // --- SINCRONIZAÇÃO EM TEMPO REAL ---
-
-        // Escutar Amigos
-        db.ref('amigos').on('value', (snap) => {
-            const lista = document.getElementById('listaAmigos');
-            lista.innerHTML = "";
-            if(!snap.exists()) lista.innerHTML = "<small>Nenhum amigo adicionado ainda.</small>";
-            snap.forEach(item => {
-                const d = document.createElement('div');
-                d.className = 'friend-item';
-                d.innerText = item.val();
-                d.onclick = () => prepararExclusao(item.key, 'amigos');
-                lista.appendChild(d);
-            });
-        });
-
-        // Escutar Mural (Posts)
-        db.ref('posts').on('value', (snap) => {
-            const feed = document.getElementById('feed');
-            feed.innerHTML = "";
-            let posts = [];
-            snap.forEach(item => { posts.unshift({id: item.key, ...item.val()}); });
-            if(posts.length === 0) feed.innerHTML = "<div class='box'>O mural está vazio. Seja o primeiro a postar!</div>";
-            posts.forEach(p => {
-                const d = document.createElement('div');
-                d.className = 'box publicacao';
-                d.innerHTML = `<b style="color:#00d9ff">${p.nome}</b> disse:<br>${p.texto}`;
-                d.onclick = () => prepararExclusao(p.id, 'posts');
-                feed.appendChild(d);
-            });
-        });
-    </script>
 </body>
 </html>
