@@ -34,7 +34,6 @@
             margin-bottom: 20px;
         }
 
-        /* --- MARCA D'ÁGUA XATBOOK --- */
         .brand-footer {
             position: fixed;
             bottom: 20px;
@@ -44,13 +43,15 @@
             color: #0088ff;
             text-shadow: 0 0 10px rgba(0, 136, 255, 0.5);
             z-index: 3000;
-            pointer-events: none; /* Não atrapalha cliques */
+            pointer-events: none;
             font-family: 'Arial Black', sans-serif;
         }
 
         /* --- COLUNA ESQUERDA --- */
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; border: 4px solid #00d9ff; object-fit: cover; }
-        
+        .profile-photo { width: 150px; height: 150px; border-radius: 50%; border: 4px solid #00d9ff; object-fit: cover; transition: 0.3s; }
+        .profile-photo:hover { box-shadow: 0 0 20px #00d9ff; transform: scale(1.02); }
+        .id-text { color: #aaa; font-size: 14px; margin-top: 5px; font-family: monospace; }
+
         .btn {
             background: rgba(255, 255, 255, 0.1);
             color: white;
@@ -64,12 +65,32 @@
             margin-bottom: 10px;
             width: 100%;
             transition: 0.3s;
+            text-decoration: none;
+            box-sizing: border-box;
         }
         .btn.primary { background: #0088ff; border-color: #0088ff; }
         .btn.danger { background: #ff3232; border-color: #ff3232; }
-        .btn:hover { filter: brightness(1.2); transform: scale(1.02); }
+        .btn:hover { background: #00d9ff; color: #0a0a0a; box-shadow: 0 0 15px #00d9ff; transform: scale(1.02); }
 
-        /* --- GALERIA NA DIREITA --- */
+        /* --- SUB-MENU COMUNIDADE --- */
+        .submenu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+        .btn-sub {
+            font-size: 13px;
+            padding: 8px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        /* --- GALERIA & FEED --- */
         .gallery-container {
             display: none;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -82,32 +103,20 @@
             background-size: cover; background-position: center;
             border: 2px solid rgba(0, 217, 255, 0.3); cursor: pointer; transition: 0.3s;
         }
+        .gallery-item:hover { border-color: #00d9ff; box-shadow: 0 0 15px #00d9ff; transform: scale(1.03); }
 
-        /* --- MODAIS --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000;
             backdrop-filter: blur(5px);
         }
-        .modal-content { 
-            background: #111; padding: 25px; border-radius: 15px; 
-            border: 1px solid #00d9ff; width: 320px; text-align: center;
-            box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
-        }
+        .modal-content { background: #111; padding: 25px; border-radius: 15px; border: 1px solid #00d9ff; width: 320px; text-align: center; }
 
-        .friend-item { 
-            background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px; 
-            margin-bottom: 8px; font-size: 14px; border-left: 3px solid #00d9ff; cursor: pointer;
+        .friend-item, .publicacao { 
+            background: rgba(255,255,255,0.1); padding: 12px; border-radius: 5px; 
+            margin-bottom: 8px; font-size: 14px; border-left: 3px solid #00d9ff; cursor: pointer; transition: 0.3s;
         }
-
-        /* --- ZOOM --- */
-        .zoom-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); justify-content: center; align-items: center; z-index: 2000;
-        }
-        .zoom-overlay img { max-width: 90%; max-height: 90%; border-radius: 10px; }
-
-        .publicacao { background: rgba(255, 255, 255, 0.08); padding: 15px; border-radius: 12px; border-left: 5px solid #00d9ff; margin-top: 15px; }
+        .friend-item:hover, .publicacao:hover { background: rgba(0, 217, 255, 0.1); box-shadow: inset 0 0 10px rgba(0,217,255,0.2); }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -127,37 +136,31 @@
 
     <div id="modalRemover" class="modal-overlay">
         <div class="modal-content">
-            <h3 style="color: #ff3232; margin: 0 0 15px;">Remover Amigo?</h3>
-            <p id="textoConfirmacao">Deseja remover este amigo?</p>
-            <button class="btn danger" id="btnConfirmarRemover">Sim, Remover</button>
+            <h3 id="tituloRemover" style="color: #ff3232; margin: 0 0 15px;">Excluir?</h3>
+            <p id="textoConfirmacao">Deseja remover este item?</p>
+            <button class="btn danger" id="btnConfirmarRemover">Sim, Excluir</button>
             <button class="btn" onclick="fecharModal('modalRemover')">Não, Cancelar</button>
         </div>
-    </div>
-
-    <div id="modalInfo" class="modal-overlay">
-        <div class="modal-content">
-            <h3 style="color: #00d9ff; margin-bottom: 15px;">Informações</h3>
-            <p><b>Nome:</b> Gabriel</p>
-            <p><b>País:</b> Brasil</p>
-            <p><b>Idade:</b> 24 anos</p>
-            <button class="btn primary" onclick="fecharModal('modalInfo')">Fechar</button>
-        </div>
-    </div>
-
-    <div id="zoomOverlay" class="zoom-overlay" onclick="this.style.display='none'">
-        <img id="imgZoomed" src="">
     </div>
 
     <div class="main-container">
         <div class="profile-sidebar">
             <div class="box" style="text-align: center;">
                 <img src="https://i.imgur.com/Z8OtVir.jpeg" class="profile-photo">
-                <p style="font-weight: bold; font-size: 20px; margin-top: 10px;">Gabriel</p>
+                <p style="font-weight: bold; font-size: 20px; margin: 10px 0 0;">Gabriel</p>
+                <div class="id-text">ID: 1777777</div>
             </div>
+            
             <div class="box">
+                <button class="btn" onclick="voltarInicio()">Início</button>
                 <button class="btn primary" onclick="abrirModal('modalAmigo')">Adicionar Amigo</button>
-                <button class="btn" onclick="abrirModal('modalInfo')">Info</button>
                 <button class="btn" onclick="toggleGallery()">Fotos</button>
+                
+                <button class="btn" onclick="toggleComunidade()">Xat Comunidade</button>
+                <div id="menuComunidade" class="submenu">
+                    <a href="https://xat.com/TUGA" target="_blank" class="btn btn-sub">Xat TUGA</a>
+                    <a href="https://xat.com/butecopremium" target="_blank" class="btn btn-sub">Xat Buteco</a>
+                </div>
             </div>
         </div>
 
@@ -186,19 +189,46 @@
 
     <script>
         let elementoParaRemover = null;
+        let tipoRemocao = "";
 
         function abrirModal(id) { document.getElementById(id).style.display = 'flex'; }
         function fecharModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function toggleComunidade() {
+            const m = document.getElementById('menuComunidade');
+            m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function voltarInicio() {
+            document.getElementById('galeriaDireita').style.display = 'none';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
 
         function toggleGallery() {
             const g = document.getElementById('galeriaDireita');
             g.style.display = (g.style.display === 'grid') ? 'none' : 'grid';
         }
 
-        function openZoom(el) {
-            document.getElementById('imgZoomed').src = el.style.backgroundImage.slice(5, -2);
-            document.getElementById('zoomOverlay').style.display = 'flex';
+        function prepararExclusao(elemento, texto, tipo, idPost = null) {
+            elementoParaRemover = elemento;
+            tipoRemocao = tipo;
+            document.getElementById('textoConfirmacao').innerText = texto;
+            document.getElementById('btnConfirmarRemover').dataset.idPost = idPost;
+            abrirModal('modalRemover');
         }
+
+        document.getElementById('btnConfirmarRemover').onclick = function() {
+            if (elementoParaRemover) {
+                if (tipoRemocao === "post") {
+                    let posts = JSON.parse(localStorage.getItem('feed_gab')) || [];
+                    posts = posts.filter(p => p.data != this.dataset.idPost);
+                    localStorage.setItem('feed_gab', JSON.stringify(posts));
+                }
+                elementoParaRemover.remove();
+                elementoParaRemover = null;
+            }
+            fecharModal('modalRemover');
+        };
 
         function confirmarAdicionarAmigo() {
             const nome = document.getElementById('nomeAmigoInput').value;
@@ -206,32 +236,25 @@
             const div = document.createElement('div');
             div.className = 'friend-item';
             div.innerText = nome;
-            div.onclick = function() {
-                elementoParaRemover = this;
-                document.getElementById('textoConfirmacao').innerText = "Remover " + nome + " dos amigos?";
-                abrirModal('modalRemover');
-            };
+            div.onclick = function() { prepararExclusao(this, "Remover " + nome + "?", "amigo"); };
             document.getElementById('listaAmigos').appendChild(div);
             document.getElementById('nomeAmigoInput').value = "";
             fecharModal('modalAmigo');
         }
-
-        document.getElementById('btnConfirmarRemover').onclick = function() {
-            if (elementoParaRemover) { elementoParaRemover.remove(); elementoParaRemover = null; }
-            fecharModal('modalRemover');
-        };
 
         window.onload = carregarPosts;
         function publicar() {
             const n = document.getElementById('nomeUsuario').value;
             const t = document.getElementById('textoPost').value;
             if(!n || !t) return;
+            const agora = Date.now();
             const posts = JSON.parse(localStorage.getItem('feed_gab')) || [];
-            posts.unshift({ nome: n, texto: t, data: Date.now() });
+            posts.unshift({ nome: n, texto: t, data: agora });
             localStorage.setItem('feed_gab', JSON.stringify(posts));
             document.getElementById('textoPost').value = "";
             carregarPosts();
         }
+
         function carregarPosts() {
             const f = document.getElementById('feed');
             const posts = JSON.parse(localStorage.getItem('feed_gab')) || [];
@@ -241,6 +264,7 @@
                 const d = document.createElement('div');
                 d.className = 'publicacao';
                 d.innerHTML = `<b style="color:#00d9ff">${p.nome}</b> publicou:<br>${p.texto}`;
+                d.onclick = function() { prepararExclusao(this, "Excluir esta mensagem?", "post", p.data); };
                 f.appendChild(d);
             });
         }
