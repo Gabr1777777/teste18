@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XatSpace Ultra</title>
+<title>XatSpace INSANO</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -16,164 +16,144 @@ body{
     overflow-x:hidden;
 }
 
-/* CURSOR NEON */
+/* LOGIN */
+#login{
+position:fixed;
+width:100%;height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+flex-direction:column;
+}
+#login input{
+padding:10px;margin:10px;border-radius:10px;border:none;
+}
+#login button{
+padding:10px 20px;
+border:none;
+background:#00c6ff;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* CURSOR */
 .cursor{
-    width:15px;height:15px;
-    border-radius:50%;
-    position:fixed;
-    background:#00c6ff;
-    pointer-events:none;
-    box-shadow:0 0 20px #00c6ff,0 0 40px #ff00cc;
+width:15px;height:15px;border-radius:50%;
+position:fixed;
+background:#00c6ff;
+pointer-events:none;
+box-shadow:0 0 20px #00c6ff,0 0 40px #ff00cc;
 }
 
 /* FUNDO */
 canvas{position:fixed;top:0;left:0;z-index:-1}
 
-/* TELA */
-#welcome{
-    position:fixed;
-    width:100%;height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:black;
-    z-index:999;
-    animation:fadeOut 2s forwards;
-    animation-delay:3s;
-}
-
-#welcome h1{
-    font-size:2.5rem;
-    color:#fff;
-    text-shadow:0 0 10px #00c6ff,0 0 20px #ff00cc;
-    animation:glitch 1s infinite alternate;
-}
-
-@keyframes glitch{
-    from{transform:translate(1px,1px);}
-    to{transform:translate(-1px,-1px);}
-}
-
-@keyframes fadeOut{
-    to{opacity:0;visibility:hidden;}
-}
-
 /* NAV */
 nav{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    padding:20px;
+display:flex;
+justify-content:center;
+gap:15px;
+padding:20px;
 }
-
 nav button{
-    padding:10px 20px;
-    border-radius:25px;
-    border:none;
-    cursor:pointer;
-    background:linear-gradient(45deg,#00c6ff,#ff00cc);
-    color:white;
-    transition:0.3s;
+padding:10px 20px;
+border-radius:25px;
+border:none;
+background:linear-gradient(45deg,#00c6ff,#ff00cc);
+color:white;
+cursor:pointer;
 }
-
-nav button.active{
-    box-shadow:0 0 20px #ff00cc;
-    transform:scale(1.1);
-}
+nav button.active{box-shadow:0 0 20px #ff00cc;}
 
 /* SEÇÕES */
 .section{display:none;padding:40px;text-align:center;}
 .active-section{display:block;}
 
+/* GLITCH */
+.glitch{
+font-size:2rem;
+position:relative;
+}
+.glitch::before,.glitch::after{
+content:attr(data-text);
+position:absolute;
+left:0;
+}
+.glitch::before{color:#f0f;animation:glitch 1s infinite;}
+.glitch::after{color:#0ff;animation:glitch 1s infinite reverse;}
+
+@keyframes glitch{
+0%{transform:translate(1px,-1px);}
+50%{transform:translate(-1px,1px);}
+100%{transform:translate(1px,1px);}
+}
+
 /* GALERIA */
 .gallery img{
-    width:150px;
-    margin:10px;
-    border-radius:10px;
-    cursor:pointer;
-    transition:0.3s;
+width:150px;margin:10px;border-radius:10px;
+cursor:pointer;transition:.3s;
 }
 .gallery img:hover{transform:scale(1.1);}
 
 /* LIGHTBOX */
 #lightbox{
-    position:fixed;
-    top:0;left:0;
-    width:100%;height:100%;
-    background:rgba(0,0,0,0.9);
-    display:none;
-    justify-content:center;
-    align-items:center;
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.9);
+display:none;justify-content:center;align-items:center;
 }
-#lightbox img{
-    max-width:90%;
-    border-radius:10px;
-}
+#lightbox img{max-width:90%;border-radius:10px;}
 
 /* PLAYER */
 .music-card{
-    max-width:300px;
-    margin:auto;
-    padding:20px;
-    border-radius:20px;
-    background:rgba(255,255,255,0.05);
-    box-shadow:0 0 20px #00c6ff;
+max-width:300px;margin:auto;padding:20px;
+background:rgba(255,255,255,0.05);
+border-radius:20px;
+box-shadow:0 0 20px #00c6ff;
 }
+.bars{display:flex;justify-content:center;gap:3px;margin:10px;}
+.bar{width:5px;height:20px;background:#00c6ff;animation:beat 1s infinite;}
+@keyframes beat{50%{height:30px;}}
 
-/* VISUALIZER */
-.bars{
-    display:flex;
-    justify-content:center;
-    gap:3px;
-    margin:10px 0;
+/* CHAT */
+.chat{
+max-width:300px;margin:auto;
+background:rgba(255,255,255,0.05);
+padding:10px;border-radius:10px;
 }
-.bar{
-    width:5px;
-    height:20px;
-    background:#00c6ff;
-    animation:beat 1s infinite ease-in-out;
-}
-.bar:nth-child(2){animation-delay:0.2s;}
-.bar:nth-child(3){animation-delay:0.4s;}
-.bar:nth-child(4){animation-delay:0.6s;}
-
-@keyframes beat{
-    0%,100%{height:10px;}
-    50%{height:30px;}
-}
-
+.msg{font-size:12px;margin:5px;}
 </style>
 </head>
 
 <body>
 
+<!-- LOGIN -->
+<div id="login">
+<h2>Entrar no XatSpace</h2>
+<input placeholder="Usuário">
+<input placeholder="Senha" type="password">
+<button onclick="enter()">Entrar</button>
+</div>
+
 <div class="cursor" id="cursor"></div>
 <canvas id="bg"></canvas>
 
-<div id="welcome">
-    <h1>Bem vindos ao meu xatspace</h1>
-</div>
-
 <nav>
 <button onclick="show('home',this)" class="active">Início</button>
-<button onclick="show('profile',this)">Perfil</button>
 <button onclick="show('gallery',this)">Fotos</button>
 <button onclick="show('music',this)">Música</button>
+<button onclick="show('chat',this)">Chat</button>
 </nav>
 
 <div id="home" class="section active-section">
-<h1>Alex Rivera</h1>
-<p>Perfil ultra moderno</p>
-</div>
-
-<div id="profile" class="section">
-<p>Perfil completo futurista 🚀</p>
+<h1 class="glitch" data-text="Bem vindos ao meu xatspace">Bem vindos ao meu xatspace</h1>
+<p>Perfil INSANO 🚀</p>
 </div>
 
 <div id="gallery" class="section gallery">
 <img src="https://picsum.photos/300?1" onclick="openImg(this.src)">
 <img src="https://picsum.photos/300?2" onclick="openImg(this.src)">
-<img src="https://picsum.photos/300?3" onclick="openImg(this.src)">
 </div>
 
 <div id="lightbox" onclick="this.style.display='none'">
@@ -184,75 +164,79 @@ nav button.active{
 <div class="music-card">
 <button onclick="play()">▶</button>
 <div class="bars">
-<div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+<div class="bar"></div><div class="bar"></div><div class="bar"></div>
 </div>
 <audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 </div>
 </div>
 
+<div id="chat" class="section">
+<div class="chat" id="chatBox"></div>
+</div>
+
 <script>
+// LOGIN
+function enter(){
+document.getElementById("login").style.display="none";
+}
+
 // MENU
 function show(id,btn){
 document.querySelectorAll('.section').forEach(s=>s.classList.remove('active-section'));
 document.getElementById(id).classList.add('active-section');
-
 document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
 btn.classList.add('active');
 }
 
+// CURSOR
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
+});
+
 // LIGHTBOX
 function openImg(src){
-document.getElementById("lightbox").style.display="flex";
-document.getElementById("lightImg").src=src;
+lightbox.style.display="flex";
+lightImg.src=src;
 }
 
 // PLAYER
 function play(){
-const a=document.getElementById("audio");
-a.paused?a.play():a.pause();
+audio.paused?audio.play():audio.pause();
 }
 
-// CURSOR
-document.addEventListener("mousemove",e=>{
-const c=document.getElementById("cursor");
-c.style.left=e.clientX+"px";
-c.style.top=e.clientY+"px";
-});
+// CHAT FAKE
+const msgs=["Olá 👋","Bem vindo!","Curtiu o perfil?","🔥🔥🔥"];
+let i=0;
+setInterval(()=>{
+if(i<msgs.length){
+let d=document.createElement("div");
+d.className="msg";
+d.innerText=msgs[i++];
+chatBox.appendChild(d);
+}
+},1500);
 
-// FUNDO COM LINHAS
+// FUNDO
 const canvas=document.getElementById("bg");
 const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+canvas.width=innerWidth;
+canvas.height=innerHeight;
 
 let p=[];
-for(let i=0;i<60;i++){
+for(let i=0;i<50;i++){
 p.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,dx:Math.random()-0.5,dy:Math.random()-0.5});
 }
 
 function draw(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
-
 p.forEach(a=>{
 a.x+=a.dx;a.y+=a.dy;
-
 ctx.beginPath();
 ctx.arc(a.x,a.y,2,0,Math.PI*2);
 ctx.fillStyle="#00c6ff";
 ctx.fill();
-
-p.forEach(b=>{
-let dist=Math.hypot(a.x-b.x,a.y-b.y);
-if(dist<100){
-ctx.strokeStyle="rgba(0,198,255,0.1)";
-ctx.beginPath();
-ctx.moveTo(a.x,a.y);
-ctx.lineTo(b.x,b.y);
-ctx.stroke();
-}
 });
-});
-
 requestAnimationFrame(draw);
 }
 draw();
