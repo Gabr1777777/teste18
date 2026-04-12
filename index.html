@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Perfil Alex Rivera</title>
+<title>XatSpace - Alex</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -16,8 +16,48 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #141e30, #243b55);
-    color: #fff;
+    overflow-x: hidden;
+    background: black;
+    color: white;
+}
+
+/* FUNDO ANIMADO */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* TELA INICIAL */
+#welcome {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #000, #020024);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeOut 2s ease forwards;
+    animation-delay: 3s;
+}
+
+#welcome h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, #00c6ff, #ff00cc);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: zoom 2s ease;
+}
+
+@keyframes zoom {
+    from {transform: scale(0.5); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+@keyframes fadeOut {
+    to {opacity: 0; visibility: hidden;}
 }
 
 /* NAV */
@@ -26,32 +66,30 @@ nav {
     justify-content: center;
     gap: 15px;
     padding: 20px;
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
 }
 
 nav button {
     padding: 10px 20px;
+    border-radius: 25px;
     border: none;
-    border-radius: 20px;
     cursor: pointer;
-    background: rgba(255,255,255,0.1);
-    color: #fff;
+    background: linear-gradient(45deg, #00c6ff, #ff00cc);
+    color: white;
+    font-weight: bold;
     transition: 0.3s;
+    box-shadow: 0 0 10px #00c6ff;
 }
 
 nav button:hover {
-    background: #00c6ff;
-    color: #000;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ff00cc;
 }
 
-/* SECTIONS */
+/* SEÇÕES */
 .section {
     display: none;
     padding: 40px 20px;
-    max-width: 1000px;
-    margin: auto;
+    text-align: center;
     animation: fade 0.5s;
 }
 
@@ -64,31 +102,27 @@ nav button:hover {
     to {opacity: 1;}
 }
 
-/* HOME */
-.home {
-    text-align: center;
-}
-
+/* PERFIL */
 .profile-pic {
     width: 140px;
-    height: 140px;
     border-radius: 50%;
+    border: 3px solid #00c6ff;
     margin-bottom: 15px;
 }
 
-/* PROFILE */
+/* CARD */
 .card {
     background: rgba(255,255,255,0.05);
-    padding: 25px;
+    padding: 20px;
     border-radius: 15px;
     backdrop-filter: blur(10px);
 }
 
-/* GALLERY */
+/* GALERIA */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
 }
 
 .gallery img {
@@ -98,17 +132,17 @@ nav button:hover {
 }
 
 .gallery img:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
-/* MUSIC */
+/* PLAYER */
 .music-btn {
     padding: 12px 20px;
-    border: none;
     border-radius: 20px;
-    background: #00c6ff;
+    border: none;
+    background: linear-gradient(45deg, #ff00cc, #00c6ff);
     cursor: pointer;
-    font-weight: bold;
+    color: white;
 }
 
 .player {
@@ -121,6 +155,15 @@ nav button:hover {
 
 <body>
 
+<!-- FUNDO -->
+<canvas id="bg"></canvas>
+
+<!-- TELA INICIAL -->
+<div id="welcome">
+    <h1>Bem vindos ao meu xatspace</h1>
+</div>
+
+<!-- MENU -->
 <nav>
     <button onclick="showSection('home')">Início</button>
     <button onclick="showSection('profile')">Perfil</button>
@@ -128,30 +171,20 @@ nav button:hover {
     <button onclick="showSection('music')">Música</button>
 </nav>
 
-<!-- INICIO -->
-<div id="home" class="section active home">
+<!-- HOME -->
+<div id="home" class="section active">
     <img src="https://picsum.photos/300" class="profile-pic">
     <h1>Alex Rivera</h1>
     <p>25 anos • Leão</p>
-    <p><i>"Vivendo cada momento como se fosse único."</i></p>
+    <p>"Vivendo intensamente."</p>
 </div>
 
 <!-- PERFIL -->
 <div id="profile" class="section">
     <div class="card">
         <h2>Sobre Mim</h2>
-        <p>
-            Sou uma pessoa criativa, apaixonada por música, design e fotografia.
-            Gosto de explorar novas ideias e transformar momentos simples em algo especial.
-        </p>
-
-        <h3 style="margin-top:20px;">Detalhes</h3>
-        <p>🎂 Idade: 25 anos</p>
-        <p>♌ Signo: Leão</p>
-        <p>📍 Local: Brasil</p>
-
-        <h3 style="margin-top:20px;">Interesses</h3>
-        <p>🎧 Música, 📸 Fotografia, 💻 Design, 🎮 Games</p>
+        <p>Sou apaixonado por música, design e criatividade.</p>
+        <p>Gosto de criar experiências visuais únicas e modernas.</p>
     </div>
 </div>
 
@@ -159,12 +192,10 @@ nav button:hover {
 <div id="gallery" class="section">
     <h2>Galeria</h2>
     <div class="gallery">
-        <img src="https://picsum.photos/400?1">
-        <img src="https://picsum.photos/400?2">
-        <img src="https://picsum.photos/400?3">
-        <img src="https://picsum.photos/400?4">
-        <img src="https://picsum.photos/400?5">
-        <img src="https://picsum.photos/400?6">
+        <img src="https://picsum.photos/300?1">
+        <img src="https://picsum.photos/300?2">
+        <img src="https://picsum.photos/300?3">
+        <img src="https://picsum.photos/300?4">
     </div>
 </div>
 
@@ -172,7 +203,6 @@ nav button:hover {
 <div id="music" class="section">
     <h2>Música</h2>
     <button class="music-btn" onclick="togglePlayer()">Abrir Player 🎧</button>
-
     <div id="player" class="player">
         <audio controls>
             <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
@@ -181,17 +211,57 @@ nav button:hover {
 </div>
 
 <script>
-function showSection(sectionId) {
-    document.querySelectorAll('.section').forEach(sec => {
-        sec.classList.remove('active');
-    });
-    document.getElementById(sectionId).classList.add('active');
+// TROCA DE SEÇÕES
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
 }
 
+// PLAYER
 function togglePlayer() {
-    const player = document.getElementById("player");
-    player.style.display = player.style.display === "block" ? "none" : "block";
+    const p = document.getElementById("player");
+    p.style.display = p.style.display === "block" ? "none" : "block";
 }
+
+// FUNDO ANIMADO
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for (let i = 0; i < 80; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2,
+        dx: Math.random() - 0.5,
+        dy: Math.random() - 0.5
+    });
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#00c6ff";
+
+    particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
 </script>
 
 </body>
