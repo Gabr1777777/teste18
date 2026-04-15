@@ -2,450 +2,142 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Name - Perfil</title>
+    <title>Player Boteco Premium</title>
     <style>
-        /* CSS INTEGRADO */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-            background-color: #0f0f0f;
-            color: #ffffff;
-            padding: 20px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        img {
-            -webkit-user-drag: none;
-            user-drag: none;
-        }
-
-        .flex {
+            background: url('seu-fundo-rural.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
             display: flex;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .box_center {
-            gap: 15px;
-            align-items: flex-start;
-        }
-
-        /* Barra de Letras Lateral */
-        .aside_bar {
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .aside_bar__letter {
-            width: 45px;
-            height: 45px;
-            background: #222;
-            border-radius: 8px;
             justify-content: center;
             align-items: center;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.3s;
-            border: 1px solid #333;
+            height: 100vh;
+            margin: 0;
         }
 
-        .aside_bar__letter:hover {
-            background: #e91e63;
-        }
-
-        /* Área de Conteúdo */
-        .main_content {
-            flex: 1;
-            background: #1a1a1a;
-            border-radius: 20px;
-            padding: 25px;
-            gap: 25px;
+        /* Container Principal com efeito Glassmorphism */
+        .player-container {
+            width: 350px;
+            background: rgba(30, 25, 20, 0.9);
+            border-radius: 25px;
+            padding: 20px;
+            text-align: center;
+            color: white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .main_left {
-            flex-direction: column;
-            width: 280px;
-            gap: 20px;
-        }
-
-        .user_data {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .user_data__img {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin-bottom: 10px;
-        }
-
-        .user_data__img img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #e91e63;
-        }
-
-        /* Posicionamento do novo status dot */
-        #status-dot {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            z-index: 2;
-        }
-
-        .user_data__name h2 {
-            font-size: 1.5rem;
-            margin-bottom: 2px;
-        }
-
-        .user_data__name span {
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        .user_about {
-            background: #252525;
-            padding: 15px;
-            border-radius: 10px;
-            font-style: italic;
-            text-align: center;
-            color: #ccc;
-        }
-
-        .btn_button {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #e91e63;
-            color: white;
+        .header-title {
             font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn_button:hover {
-            background: #ff4081;
-            transform: translateY(-2px);
-        }
-
-        /* Banner e Video à Direita */
-        .main_right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .photo_banner {
-            width: 100%;
-            height: 180px;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .photo_banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .video_box {
-            flex: 1;
-            min-height: 250px;
-            border-radius: 15px;
-            overflow: hidden;
-            background: #000;
-        }
-
-        /* Seção Inferior de Vídeos */
-        .video_content {
-            margin-top: 30px;
-            display: none;
-        }
-
-        .video_content.active {
-            display: block;
-        }
-
-        .header_video {
-            justify-content: space-between;
-            align-items: center;
+            letter-spacing: 1px;
             margin-bottom: 15px;
-            padding: 0 5px;
+            text-transform: uppercase;
         }
 
-        .header_video__title {
+        /* Imagem da Capa */
+        .cover-art {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .track-info {
+            margin-bottom: 20px;
+        }
+
+        .artist-name { font-size: 14px; color: #ccc; }
+        .song-title { font-size: 18px; font-weight: bold; margin: 5px 0; }
+        .listeners { font-size: 12px; color: #888; }
+
+        /* Controles */
+        .controls {
+            display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            margin-top: 15px;
         }
 
-        .header_video__title svg {
-            color: #ff0000;
-            font-size: 1.5rem;
-        }
-
-        .close_video {
-            background: none;
+        .play-btn {
+            background: white;
+            color: black;
             border: none;
-            color: #555;
-            font-size: 1.4rem;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .volume-slider {
+            width: 50%;
             cursor: pointer;
         }
 
-        .main_video .videos_list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
+        .volume-text { font-size: 12px; margin-top: 5px; text-align: right; }
+
+        /* Barras de frequência (animação) */
+        .visualizer {
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            margin-top: 20px;
         }
 
-        .video_row {
-            flex-direction: column;
-            gap: 10px;
+        .bar {
+            width: 4px;
+            height: 20px;
+            background: white;
+            animation: bounce 1s infinite ease-in-out;
         }
 
-        .video_row__box {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #000;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .video_row span {
-            font-size: 0.85rem;
-            color: #bbb;
-            line-height: 1.2;
-            height: 2.4em;
-            overflow: hidden;
-        }
-
-        iframe {
-            border: none;
-        }
-
-        /* Alerta de Segurança (Toast) */
-        #security-alert {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #e91e63;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            display: none;
-            z-index: 10000;
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; bottom: 10px; }
-            to { opacity: 1; bottom: 20px; }
-        }
-
-        @media (max-width: 768px) {
-            .box_center { flex-direction: column; }
-            .main_content { flex-direction: column; }
-            .main_left { width: 100%; }
-            .aside_bar { flex-direction: row; width: 100%; justify-content: center; }
+        @keyframes bounce {
+            0%, 100% { height: 10px; }
+            50% { height: 25px; }
         }
     </style>
 </head>
 <body>
 
-<div id="root">
-    <div class="App">
-        <div class="container">
-            
-            <div class="box_center flex">
-                <aside class="aside_bar flex">
-                    <div class="aside_bar__letter flex"><span>N</span></div>
-                    <div class="aside_bar__letter flex"><span>a</span></div>
-                    <div class="aside_bar__letter flex"><span>m</span></div>
-                    <div class="aside_bar__letter flex"><span>e</span></div>
-                </aside>
+<div class="player-container">
+    <div class="header-title">BOTECO PREMIUM</div>
+    
+    <img src="https://via.placeholder.com/300x300" alt="Capa" class="cover-art">
 
-                <main class="main_content flex">
-                    <div class="main_left flex">
-                        <div class="user_data flex">
-                            <div class="user_data__img flex">
-                                <img src="https://i.imgur.com/YDKnxJi.jpeg" alt="Name">
-                                <div id="status-dot" 
-                                     style="width: 20px; 
-                                            height: 20px; 
-                                            border-radius: 50%; 
-                                            border: 3px solid white; 
-                                            box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
-                                            transition: background-color 0.5s ease; 
-                                            background-color: #9e9e9e;" 
-                                     title="Verificando status...">
-                                </div>
-                            </div>
-                            <div class="user_data__name">
-                                <h2>Name</h2>
-                                <span>123456</span>
-                            </div>
-                        </div>
-                        <div class="user_about">
-                            <p>"Cada qual sabe amar a seu modo; o modo, pouco importa; o essencial é que saiba amar !!"</p>
-                        </div>
-                        <button class="btn_button" id="toggleVideos">Mais Vídeos</button>
-                    </div>
+    <div class="track-info">
+        <div class="artist-name">Guilherme & Benuto & Luan Santana</div>
+        <div class="song-title">Quarto 67 Ao Vivo</div>
+        <div class="listeners">Ouvintes: 7</div>
+    </div>
 
-                    <div class="main_right">
-                        <div class="photo_banner flex">
-                            <img loading="lazy" src="https://i.imgur.com/eYZLCwg.gif" alt="Banner">
-                        </div>
-                        <div class="video_box">
-                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/uxX0Qvr_eYo" title="Video Principal" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </main>
-            </div>
+    <div class="controls">
+        <button class="play-btn" onclick="togglePlay()">
+            <span>▶</span> PLAY
+        </button>
+        <input type="range" class="volume-slider" min="0" max="100" value="100">
+    </div>
+    <div class="volume-text">Volume: 100%</div>
 
-            <section class="video_content" id="videoContent">
-                <div class="header_video flex">
-                    <div class="header_video__title flex">
-                        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-                        <h3>Meus Vídeos</h3>
-                    </div>
-                    <button class="close_video flex" id="closeVideos">✕</button>
-                </div>
-
-                <div class="main_video">
-                    <div class="videos_list flex">
-                        <div class="video_row flex">
-                            <div class="video_row__box">
-                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/WhGPI3vclgs" allowfullscreen></iframe>
-                            </div>
-                            <span>Manu Bahtidão - Vinho Branco (Vídeo Oficial)</span>
-                        </div>
-
-                        <div class="video_row flex">
-                            <div class="video_row__box">
-                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/O9ABgG5SRSk" allowfullscreen></iframe>
-                            </div>
-                            <span>RAFFA TORRES - A Vida É Um Rio</span>
-                        </div>
-
-                        <div class="video_row flex">
-                            <div class="video_row__box">
-                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/A2HvRcZlHvg" allowfullscreen></iframe>
-                            </div>
-                            <span>Tribo da Periferia - Nosso Plano</span>
-                        </div>
-
-                        <div class="video_row flex">
-                            <div class="video_row__box">
-                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/W6bcNEWXM1s" allowfullscreen></iframe>
-                            </div>
-                            <span>Daniel Santacruz - Ojos Prohibidos</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+    <div class="visualizer">
+        <div class="bar"></div>
+        <div class="bar" style="animation-delay: 0.2s"></div>
+        <div class="bar" style="animation-delay: 0.4s"></div>
+        <div class="bar" style="animation-delay: 0.6s"></div>
+        <div class="bar" style="animation-delay: 0.8s"></div>
     </div>
 </div>
 
-<div id="security-alert">Copyright - Acesso Proibido</div>
+<audio id="audio-stream" src="SUA_URL_DE_STREAM_AQUI"></audio>
 
 <script>
-    // 1. LÓGICA DO STATUS (xat API)
-    async function updateStatus() {
-        try {
-            const res = await fetch('https://illuxat.com/api/online/Gabr');
-            const json = await res.json();
-            const dot = document.getElementById('status-dot');
-            
-            const isOnline = json.data?.status?.toLowerCase() === 'online';
-            
-            if (isOnline) {
-                dot.style.backgroundColor = "#22c55e"; // Verde
-                dot.title = "Online no xat";
-            } else {
-                dot.style.backgroundColor = "#ef4444"; // Vermelho
-                dot.title = "Offline no xat";
-            }
-        } catch (e) {
-            console.error("Erro ao carregar status:", e);
-            document.getElementById('status-dot').style.backgroundColor = "#9e9e9e";
+    const audio = document.getElementById('audio-stream');
+    function togglePlay() {
+        if (audio.paused) {
+            audio.play();
+        } else {
+            audio.pause();
         }
     }
-    updateStatus();
-    setInterval(updateStatus, 60000);
-
-    // 2. Gerenciamento de Vídeos
-    const toggleButton = document.getElementById('toggleVideos');
-    const closeButton = document.getElementById('closeVideos');
-    const videoContent = document.getElementById('videoContent');
-
-    toggleButton.addEventListener('click', () => {
-        videoContent.classList.toggle('active');
-    });
-
-    closeButton.addEventListener('click', () => {
-        videoContent.classList.remove('active');
-    });
-
-    // 3. Travas de Segurança
-    (function() {
-        const alertBox = document.getElementById('security-alert');
-
-        function showAlert() {
-            alertBox.style.display = 'block';
-            setTimeout(() => {
-                alertBox.style.display = 'none';
-            }, 2000);
-        }
-
-        window.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-            showAlert();
-        }, true);
-
-        window.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S' || e.key === 'c' || e.key === 'C')) {
-                e.preventDefault();
-                showAlert();
-            }
-            if (e.key === "F12") {
-                e.preventDefault();
-                showAlert();
-            }
-        }, true);
-
-        document.addEventListener('dragstart', (e) => {
-            e.preventDefault();
-        });
-        
-        document.addEventListener('mousedown', (e) => {
-            if (e.button === 2) { 
-                e.preventDefault();
-            }
-        });
-    })();
 </script>
 
 </body>
