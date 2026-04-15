@@ -66,7 +66,7 @@
             transition: 0.3s;
         }
 
-        .btn-entrar:hover { transform: scale(1.15); box-shadow: 0 0 60px rgba(35, 213, 171, 0.8); }
+        .btn-entrar:hover { transform: scale(1.15); }
 
         @keyframes gradientAnim {
             0% { background-position: 0% 50%; }
@@ -81,32 +81,30 @@
             position: relative;
         }
 
-        /* NAVEGAÇÃO SUPERIOR */
-        nav {
-            position: absolute;
-            top: 30px;
-            width: 100%;
+        /* NAVEGAÇÃO */
+        .nav-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
+            margin-bottom: 30px;
             z-index: 50;
         }
 
-        nav button {
+        .nav-container button {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 25px;
+            padding: 10px 20px;
             color: white;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             transition: 0.4s;
         }
 
-        nav button:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
+        .nav-container button:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
 
-        /* WIDGETS LATERAIS */
+        /* WIDGETS */
         .widget {
             position: absolute;
             background: rgba(0, 0, 0, 0.4);
@@ -118,8 +116,8 @@
         }
         .widget:hover { background: rgba(255, 255, 255, 0.1); border-color: #23a6d5; }
 
-        .widget-left { top: 120px; left: 40px; width: 220px; cursor: pointer; }
-        .widget-right { top: 120px; right: 40px; width: 220px; }
+        .widget-left { top: 50px; left: 40px; width: 220px; cursor: pointer; }
+        .widget-right { top: 50px; right: 40px; width: 220px; }
         
         .widget-right a {
             display: block;
@@ -131,9 +129,9 @@
         }
         .widget-right a:hover { color: #e73c7e; transform: translateX(5px); }
 
-        .widget-bottom { bottom: 60px; left: 50%; transform: translateX(-50%); width: 60%; text-align: center; cursor: pointer; }
+        .widget-bottom { bottom: 40px; left: 50%; transform: translateX(-50%); width: 60%; text-align: center; cursor: pointer; }
 
-        /* SEÇÕES CENTRAIS */
+        /* SEÇÕES */
         .section {
             display: none;
             width: 100%; height: 100%;
@@ -148,17 +146,16 @@
         /* PERFIL */
         .profile-card {
             background: rgba(0, 0, 0, 0.6);
-            padding: 50px;
+            padding: 40px;
             border-radius: 30px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .avatar-container {
             position: relative;
-            width: 180px; height: 180px;
-            margin: 0 auto 25px;
+            width: 160px; height: 160px;
+            margin: 0 auto 20px;
         }
 
         .avatar {
@@ -167,61 +164,65 @@
             border: 5px solid #fff;
             animation: float 3s ease-in-out infinite;
             object-fit: cover;
-            cursor: pointer;
         }
 
-        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
         #status-dot {
             position: absolute;
-            bottom: 15px; right: 15px;
+            bottom: 10px; right: 10px;
             z-index: 10;
         }
 
-        /* GALERIA INTERATIVA */
+        /* GALERIA */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(3, 180px);
-            gap: 20px;
+            grid-template-columns: repeat(3, 170px);
+            gap: 15px;
         }
 
         .gallery-grid img {
-            width: 180px; height: 180px;
+            width: 170px; height: 170px;
             object-fit: cover;
-            border-radius: 20px;
+            border-radius: 15px;
             cursor: pointer;
-            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid transparent;
+            transition: 0.5s;
         }
 
-        .gallery-grid img:hover {
-            transform: scale(1.1) rotate(-3deg);
-            border-color: #e73c7e;
-            box-shadow: 0 10px 30px rgba(231, 60, 126, 0.4);
-        }
+        .gallery-grid img:hover { transform: scale(1.1); border: 2px solid #e73c7e; }
 
-        /* PLAYER DE MÚSICA */
+        /* PLAYER MUSICA ATUALIZADO */
         .player-box {
             background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 25px;
+            padding: 25px;
+            border-radius: 20px;
             text-align: center;
-            width: 350px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 340px;
         }
 
         .btn-action {
             background: white;
             color: black;
             border: none;
-            padding: 10px 15px;
+            padding: 8px 12px;
             border-radius: 50px;
             cursor: pointer;
             margin: 5px;
             font-weight: bold;
-            transition: 0.2s;
+            font-size: 12px;
+            transition: 0.3s;
         }
+
         .btn-action:hover { background: #23a6d5; color: white; }
+
+        .vol-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #23d5ab;
+        }
 
         /* ALERTAS E SEGURANÇA */
         #security-alert {
@@ -242,10 +243,9 @@
             background: rgba(0,0,0,0.95);
             z-index: 300;
             justify-content: center; align-items: center;
-            cursor: zoom-out;
         }
 
-        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 15px; border: 3px solid white; }
+        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 10px; }
     </style>
 </head>
 <body oncontextmenu="return showAlert();">
@@ -258,14 +258,19 @@
     </div>
 
     <div id="main-content">
-        <nav>
-            <button onclick="showSection('inicio')">INÍCIO</button>
-            <button onclick="showSection('perfil')">MEU PERFIL</button>
-            <button onclick="showSection('galeria')">GALERIA</button>
-            <button onclick="showSection('musica')">PLAYER</button>
-        </nav>
+        
+        <section id="inicio" class="section" style="display: flex;">
+            <div class="nav-container">
+                <button onclick="showSection('inicio')">INÍCIO</button>
+                <button onclick="showSection('perfil')">MEU PERFIL</button>
+                <button onclick="showSection('galeria')">GALERIA</button>
+                <button onclick="showSection('musica')">PLAYER</button>
+            </div>
+            <h1 style="font-size: 5rem; text-shadow: 0 0 25px #23a6d5; font-weight: 800;">GABR</h1>
+            <p style="letter-spacing: 8px; opacity: 0.8; margin-top: 10px;">BEM-VINDO AO MEU MUNDO DIGITAL</p>
+        </section>
 
-        <div class="widget widget-left" onclick="alert('Hora de brilhar!')">
+        <div class="widget widget-left">
             <h4 style="color: #23d5ab;">Local Time</h4>
             <div id="clock" style="font-size: 24px; font-weight: bold;">00:00:00</div>
             <p style="font-size: 12px; opacity: 0.7;">São Paulo, BR</p>
@@ -281,15 +286,15 @@
 
         <div class="widget widget-bottom" onclick="changeQuote()">
             <h3 id="quote">"O segredo da criatividade é saber esconder suas fontes."</h3>
-            <span style="font-size: 10px; opacity: 0.5;">(Clique para mudar a frase)</span>
         </div>
 
-        <section id="inicio" class="section" style="display: flex;">
-            <h1 style="font-size: 4rem; text-shadow: 0 0 20px #23a6d5;">GABR</h1>
-            <p style="letter-spacing: 5px; opacity: 0.8;">BEM-VINDO AO MEU MUNDO DIGITAL</p>
-        </section>
-
         <section id="perfil" class="section">
+            <div class="nav-container">
+                <button onclick="showSection('inicio')">INÍCIO</button>
+                <button onclick="showSection('perfil')">MEU PERFIL</button>
+                <button onclick="showSection('galeria')">GALERIA</button>
+                <button onclick="showSection('musica')">PLAYER</button>
+            </div>
             <div class="profile-card">
                 <div class="avatar-container">
                     <img src="https://i.imgur.com/YDKnxJi.jpeg" class="avatar">
@@ -302,11 +307,16 @@
                     <div>🇧🇷 <b>País:</b> Brasil</div>
                     <div>🗣️ <b>Ling:</b> PT/ES</div>
                 </div>
-                <button class="btn-action" style="width: 100%;" onclick="window.open('https://xat.com/gabr')">ADICIONAR NO XAT</button>
             </div>
         </section>
 
         <section id="galeria" class="section">
+            <div class="nav-container">
+                <button onclick="showSection('inicio')">INÍCIO</button>
+                <button onclick="showSection('perfil')">MEU PERFIL</button>
+                <button onclick="showSection('galeria')">GALERIA</button>
+                <button onclick="showSection('musica')">PLAYER</button>
+            </div>
             <div class="gallery-grid">
                 <img src="https://i.imgur.com/LSZOs8Q.jpeg" onclick="openZoom(this.src)">
                 <img src="https://i.imgur.com/BGULIuI.jpeg" onclick="openZoom(this.src)">
@@ -318,21 +328,27 @@
         </section>
 
         <section id="musica" class="section">
+            <div class="nav-container">
+                <button onclick="showSection('inicio')">INÍCIO</button>
+                <button onclick="showSection('perfil')">MEU PERFIL</button>
+                <button onclick="showSection('galeria')">GALERIA</button>
+                <button onclick="showSection('musica')">PLAYER</button>
+            </div>
             <div class="player-box">
-                <div style="background: #222; height: 120px; border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 4px;">
-                        <div style="width: 6px; height: 40px; background: #e73c7e; animation: pulse 1s infinite alternate;"></div>
-                        <div style="width: 6px; height: 70px; background: #23a6d5; animation: pulse 0.8s infinite alternate;"></div>
-                        <div style="width: 6px; height: 30px; background: #23d5ab; animation: pulse 1.2s infinite alternate;"></div>
-                        <div style="width: 6px; height: 55px; background: #e73c7e; animation: pulse 0.9s infinite alternate;"></div>
-                </div>
                 <h3 id="track-name">Carregando...</h3>
                 <audio id="audio-player"></audio>
-                <div style="margin-bottom: 15px;">
+                <div style="margin: 15px 0;">
                     <button class="btn-action" onclick="prevTrack()">⏮</button>
                     <button class="btn-action" onclick="togglePlay()" id="play-btn">▶</button>
                     <button class="btn-action" onclick="nextTrack()">⏭</button>
                 </div>
-                <button class="btn-action" onclick="lowerVolume()" style="font-size: 10px; background: #eee;">VOL -</button>
+                
+                <span class="vol-label">Vol</span>
+                <div>
+                    <button class="btn-action" onclick="setVolume(0)">0%</button>
+                    <button class="btn-action" onclick="setVolume(0.5)">50%</button>
+                    <button class="btn-action" onclick="setVolume(1)">100%</button>
+                </div>
             </div>
         </section>
     </div>
@@ -349,11 +365,6 @@
             document.getElementById('clock').innerText = now.toLocaleTimeString();
         }
         setInterval(updateClock, 1000);
-
-        const quotes = ["\"Foco, força e muito brilho.\"", "\"A vida é curta demais para ter um perfil feio.\"", "\"Espaço reservado para grandes ideias.\"", "\"O segredo da criatividade é saber esconder suas fontes.\""];
-        function changeQuote() {
-            document.getElementById('quote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
-        }
 
         function enterProfile() {
             document.getElementById('splash-screen').style.opacity = '0';
@@ -396,7 +407,9 @@
         function togglePlay() { if(audio.paused) { audio.play(); document.getElementById('play-btn').innerText = "⏸"; } else { audio.pause(); document.getElementById('play-btn').innerText = "▶"; }}
         function nextTrack() { currentTrack = (currentTrack + 1) % playlist.length; loadTrack(currentTrack); audio.play(); }
         function prevTrack() { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(currentTrack); audio.play(); }
-        function lowerVolume() { if(audio.volume > 0.1) audio.volume -= 0.1; }
+        
+        function setVolume(val) { audio.volume = val; }
+        
         audio.onended = () => nextTrack();
 
         function openZoom(src) { document.getElementById('zoom-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
@@ -414,6 +427,5 @@
             }
         };
     </script>
-    <style> @keyframes pulse { to { height: 15px; opacity: 0.3; } } </style>
 </body>
 </html>
