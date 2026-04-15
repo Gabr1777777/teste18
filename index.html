@@ -1,11 +1,10 @@
 <style>
-    /* --- FUNDO E TEMA --- */
+    /* --- CONFIGURAÇÕES DE FUNDO --- */
     body, #xat_user_id {
         margin: 0;
         padding: 0;
         font-family: 'Segoe UI', Tahoma, sans-serif;
         color: white;
-        overflow-x: hidden;
     }
 
     .bg-glow {
@@ -17,306 +16,290 @@
         background-image: url('https://i.imgur.com/4kRbv63.gif');
         background-size: cover;
         background-position: center;
-        background-repeat: no-repeat;
         z-index: -2;
     }
 
-    /* --- CONTAINER PRINCIPAL --- */
-    .main-container {
-        max-width: 850px;
+    /* --- ESTRUTURA PRINCIPAL --- */
+    .main-wrapper {
+        max-width: 900px;
         margin: 40px auto;
-        background: rgba(0, 0, 0, 0.85);
-        border: 2px solid #d4af37;
-        border-radius: 15px;
-        box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+        background: rgba(10, 10, 10, 0.85);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(0,0,0,0.8), 0 0 15px rgba(212, 175, 55, 0.2);
         overflow: hidden;
-        position: relative;
-        backdrop-filter: blur(8px);
     }
 
-    /* --- HEADER E STATUS --- */
-    .header {
+    /* --- CABEÇALHO --- */
+    .header-banner {
         height: 200px;
-        background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.95));
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding-top: 20px;
+        background: linear-gradient(to bottom, transparent, rgba(10,10,10,1)), 
+                    url('https://i.imgur.com/HCn75BA.jpeg') center/cover;
+        position: relative;
+        border-bottom: 2px solid #d4af37;
     }
 
-    .profile-img {
-        width: 130px;
-        height: 130px;
+    .avatar-box {
+        position: absolute;
+        bottom: -60px;
+        left: 40px;
+        text-align: center;
+    }
+
+    .avatar-img {
+        width: 140px;
+        height: 140px;
         border-radius: 50%;
         border: 4px solid #d4af37;
         background: url('https://i.imgur.com/YDKnxJi.jpeg') center/cover;
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
     }
 
-    /* --- NAVEGAÇÃO --- */
-    .nav-bar {
+    /* --- CONTEÚDO --- */
+    .profile-content {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 25px;
+        padding: 80px 40px 40px 40px;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+    .card h3 {
+        margin-top: 0;
+        color: #d4af37;
+        border-left: 4px solid #d4af37;
+        padding-left: 10px;
+        font-size: 18px;
+    }
+
+    /* --- ABAS E BOTÕES --- */
+    .nav-tabs {
         display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin: 25px 0;
+        gap: 10px;
+        margin-bottom: 20px;
     }
 
-    .nav-btn {
-        background: #000;
+    .tab-btn {
+        background: transparent;
         border: 1px solid #d4af37;
         color: #d4af37;
-        padding: 10px 25px;
+        padding: 8px 15px;
+        border-radius: 5px;
         cursor: pointer;
         font-weight: bold;
-        border-radius: 5px;
-        text-transform: uppercase;
         transition: 0.3s;
     }
 
-    .nav-btn:hover {
-        background: #d4af37;
-        color: #000;
-        box-shadow: 0 0 10px #d4af37;
-    }
+    .tab-btn:hover { background: rgba(212, 175, 55, 0.2); }
 
-    /* --- SEÇÕES --- */
-    .content-section {
-        padding: 30px;
-        display: none;
-        min-height: 300px;
-        animation: fadeIn 0.5s ease;
-    }
+    .content-pane { display: none; }
+    .active-pane { display: block; animation: fadeIn 0.4s ease; }
 
-    .active-section { display: block; }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* --- GALERIA COM ZOOM --- */
+    /* --- GALERIA GRID --- */
     .gallery-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
-        margin-top: 15px;
+        gap: 10px;
     }
 
-    .gal-img {
+    .gal-thumb {
         width: 100%;
-        height: 120px;
-        border-radius: 8px;
+        height: 80px;
+        border-radius: 6px;
         background-size: cover;
         background-position: center;
-        border: 2px solid #333;
+        border: 1px solid #444;
         cursor: zoom-in;
         transition: 0.3s;
     }
-
-    .gal-img:hover {
-        border-color: #d4af37;
-        transform: scale(1.03);
-    }
-
-    /* --- LIGHTBOX (ZOOM) --- */
-    #lightbox-overlay {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 3000;
-        cursor: zoom-out;
-        backdrop-filter: blur(10px);
-    }
-
-    #lightbox-img {
-        max-width: 90%;
-        max-height: 85%;
-        border: 3px solid #d4af37;
-        border-radius: 10px;
-        box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
-        transform: scale(0.7);
-        transition: 0.3s ease;
-    }
-
-    #lightbox-overlay.active #lightbox-img { transform: scale(1); }
+    .gal-thumb:hover { border-color: #d4af37; transform: scale(1.05); }
 
     /* --- PLAYER --- */
-    #music-container {
-        display: none;
-        background: rgba(15, 15, 15, 0.95);
-        padding: 20px;
-        border-top: 2px solid #d4af37;
-        margin-top: 20px;
-    }
-
-    .vol-ctrl {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 10px;
+    #player-section {
+        display: none; /* Inicia oculto */
+        background: #000;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #d4af37;
+        text-align: center;
     }
 
     .vol-btn {
         background: #d4af37;
         border: none;
         color: black;
-        padding: 5px 12px;
+        padding: 4px 10px;
+        margin: 2px;
         font-size: 11px;
         font-weight: bold;
         cursor: pointer;
-        border-radius: 4px;
+        border-radius: 3px;
     }
 
-    /* --- SEGURANÇA --- */
-    #security-alert {
-        position: fixed;
-        bottom: -60px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #d4af37;
-        color: black;
-        padding: 12px 40px;
-        font-weight: bold;
-        border-radius: 8px 8px 0 0;
-        transition: 0.4s;
-        z-index: 4000;
-        box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+    /* --- ZOOM & SEGURANÇA --- */
+    #zoom-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9); display: none;
+        justify-content: center; align-items: center; z-index: 5000;
+        cursor: zoom-out; backdrop-filter: blur(8px);
     }
-    .show-alert { bottom: 0 !important; }
+    #zoom-img {
+        max-width: 90%; max-height: 85%; border: 3px solid #d4af37;
+        border-radius: 10px; transform: scale(0.8); transition: 0.3s;
+    }
+    #zoom-overlay.active #zoom-img { transform: scale(1); }
+
+    #sec-msg {
+        position: fixed; bottom: -60px; left: 50%; transform: translateX(-50%);
+        background: #d4af37; color: black; padding: 12px 30px;
+        font-weight: bold; border-radius: 8px 8px 0 0; transition: 0.4s; z-index: 6000;
+    }
+    .show-sec { bottom: 0 !important; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 
 <div class="bg-glow"></div>
 
-<div class="main-container">
-    <div class="header">
-        <div class="profile-img"></div>
-        <div id="status-dot" style="width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: background-color 0.5s ease; background-color: #9e9e9e; margin-top: 15px;" title="Verificando..."></div>
-    </div>
-
-    <div class="nav-bar">
-        <button class="nav-btn" onclick="showTab('inicio')">Início</button>
-        <button class="nav-btn" onclick="showTab('perfil')">Perfil</button>
-        <button class="nav-btn" onclick="togglePlayer()">Trader</button>
-    </div>
-
-    <div id="inicio" class="content-section active-section">
-        <h2 style="color:#d4af37; border-bottom: 1px solid #333; padding-bottom: 10px;">Bem-vindo</h2>
-        <p>Inovação e tecnologia aplicadas ao seu perfil. Especialista em design e hardware.</p>
-        <div class="gallery-grid">
-            <div class="gal-img" style="background-image: url('https://i.imgur.com/LSZOs8Q.jpeg')" onclick="openZoom('https://i.imgur.com/LSZOs8Q.jpeg')"></div>
-            <div class="gal-img" style="background-image: url('https://i.imgur.com/BGULIuI.jpeg')" onclick="openZoom('https://i.imgur.com/BGULIuI.jpeg')"></div>
-            <div class="gal-img" style="background-image: url('https://i.imgur.com/HCn75BA.jpeg')" onclick="openZoom('https://i.imgur.com/HCn75BA.jpeg')"></div>
+<div class="main-wrapper">
+    <div class="header-banner">
+        <div class="avatar-box">
+            <div class="avatar-img"></div>
+            <div id="status-dot" style="width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; background-color: #9e9e9e; margin: 10px auto;" title="Verificando..."></div>
         </div>
     </div>
 
-    <div id="perfil" class="content-section">
-        <h2 style="color:#d4af37; border-bottom: 1px solid #333; padding-bottom: 10px;">Perfil Detalhado</h2>
-        <table style="width: 100%; border-spacing: 15px; text-align: left;">
-            <tr><td><b style="color:#d4af37">🌍 País:</b> Brasil</td><td><b style="color:#d4af37">🎂 Idade:</b> 20 Anos</td></tr>
-            <tr><td><b style="color:#d4af37">🗣️ Idioma:</b> Português / Espanhol</td><td><b style="color:#d4af37">📅 Ano:</b> 2026</td></tr>
-            <tr><td><b style="color:#d4af37">♈ Signo:</b> Áries</td><td><b style="color:#d4af37">🛠️ Cargo:</b> Designer & Dev</td></tr>
-        </table>
-        <div class="gallery-grid">
-            <div class="gal-img" style="background-image: url('https://i.imgur.com/QvXRzEF.jpeg')" onclick="openZoom('https://i.imgur.com/QvXRzEF.jpeg')"></div>
-            <div class="gal-img" style="background-image: url('https://i.imgur.com/0h6IQIZ.jpeg')" onclick="openZoom('https://i.imgur.com/0h6IQIZ.jpeg')"></div>
-        </div>
-    </div>
+    <div class="profile-content">
+        <div class="left-side">
+            <div class="nav-tabs">
+                <button class="tab-btn" onclick="openTab('tab-inicio')">Início</button>
+                <button class="tab-btn" onclick="openTab('tab-perfil')">Perfil</button>
+                <button class="tab-btn" onclick="toggleMusic()">Trader</button>
+            </div>
 
-    <div id="music-container">
-        <div style="font-size: 13px; color: #d4af37; text-align: center; font-weight: bold;">
-            <marquee id="track-name" scrollamount="4">Carregando...</marquee>
-        </div>
-        <audio id="main-audio"></audio>
-        <div class="vol-ctrl">
-            <span style="font-size: 11px; font-weight: bold;">VOL:</span>
-            <button class="vol-btn" onclick="setVol(0)">0%</button>
-            <button class="vol-btn" onclick="setVol(0.5)">50%</button>
-            <button class="vol-btn" onclick="setVol(1)">100%</button>
-        </div>
-    </div>
+            <div id="tab-inicio" class="content-pane active-pane">
+                <div class="card">
+                    <h3>Sobre o Projeto</h3>
+                    <p>Bem-vindo ao centro de tecnologia MultiTech. Especialista em hardware e design digital.</p>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gal-thumb" style="background-image: url('https://i.imgur.com/LSZOs8Q.jpeg')" onclick="zoom('https://i.imgur.com/LSZOs8Q.jpeg')"></div>
+                    <div class="gal-thumb" style="background-image: url('https://i.imgur.com/BGULIuI.jpeg')" onclick="zoom('https://i.imgur.com/BGULIuI.jpeg')"></div>
+                    <div class="gal-thumb" style="background-image: url('https://i.imgur.com/HCn75BA.jpeg')" onclick="zoom('https://i.imgur.com/HCn75BA.jpeg')"></div>
+                </div>
+            </div>
 
-    <div style="padding: 20px; font-size: 11px; color: #444; text-align: center; font-weight: bold;">
-        GABRIEL MULTITECH SYSTEMS © 2026
+            <div id="tab-perfil" class="content-pane">
+                <div class="card">
+                    <h3>Dados Pessoais</h3>
+                    <p><b>🌍 País:</b> Brasil | <b>🎂 Idade:</b> 20 Anos</p>
+                    <p><b>🗣️ Idioma:</b> Português - Espanhol | <b>📅 Ano:</b> 2026</p>
+                    <p><b>♈ Signo:</b> Áries | <b>🛠️ Cargo:</b> Designer & Reparos</p>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gal-thumb" style="background-image: url('https://i.imgur.com/QvXRzEF.jpeg')" onclick="zoom('https://i.imgur.com/QvXRzEF.jpeg')"></div>
+                    <div class="gal-thumb" style="background-image: url('https://i.imgur.com/0h6IQIZ.jpeg')" onclick="zoom('https://i.imgur.com/0h6IQIZ.jpeg')"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div id="player-section">
+                <h3 style="color:#d4af37; font-size: 14px; margin-bottom: 10px;">Music Player</h3>
+                <marquee id="track-title" style="font-size: 11px; color: #aaa;">Carregando...</marquee>
+                <audio id="player-core"></audio>
+                <div style="margin-top:10px;">
+                    <span style="font-size:10px">VOL:</span>
+                    <button class="vol-btn" onclick="setV(0)">0%</button>
+                    <button class="vol-btn" onclick="setV(0.5)">50%</button>
+                    <button class="vol-btn" onclick="setV(1)">100%</button>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top:20px; text-align:center; font-size:11px; color:#555;">
+                MULTITECH SECURITY <br> © 2026
+            </div>
+        </div>
     </div>
 </div>
 
-<div id="lightbox-overlay" onclick="closeZoom()"><img id="lightbox-img" src=""></div>
-<div id="security-alert">Copyright - Acesso Proibido</div>
+<div id="zoom-overlay" onclick="closeZ()"><img id="zoom-img" src=""></div>
+<div id="sec-msg">Copyright - Acesso Proibido</div>
 
 <script>
-    // --- NAVEGAÇÃO ---
-    function showTab(id) {
-        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active-section'));
-        document.getElementById(id).classList.add('active-section');
+    // --- TABS ---
+    function openTab(id) {
+        document.querySelectorAll('.content-pane').forEach(p => p.classList.remove('active-pane'));
+        document.getElementById(id).classList.add('active-pane');
     }
 
     // --- ZOOM ---
-    function openZoom(url) {
-        const ov = document.getElementById('lightbox-overlay');
-        const img = document.getElementById('lightbox-img');
-        img.src = url;
-        ov.style.display = 'flex';
-        setTimeout(() => ov.classList.add('active'), 10);
+    function zoom(url) {
+        const o = document.getElementById('zoom-overlay');
+        const i = document.getElementById('zoom-img');
+        i.src = url; o.style.display = 'flex';
+        setTimeout(() => o.classList.add('active'), 10);
     }
-    function closeZoom() {
-        const ov = document.getElementById('lightbox-overlay');
-        ov.classList.remove('active');
-        setTimeout(() => ov.style.display = 'none', 300);
+    function closeZ() {
+        const o = document.getElementById('zoom-overlay');
+        o.classList.remove('active');
+        setTimeout(() => o.style.display = 'none', 300);
     }
 
-    // --- PLAYER & PLAYLIST ---
+    // --- MUSIC ---
     const playlist = [
-        { name: "Abraham-Mateo - BAI LALA", url: "https://www.dropbox.com/scl/fi/gw8940zfvm60ul7malxox/Abraham-Mateo-BAI-LALA.mp3?rlkey=puytwnkxllb6tmz35htfr8tmh&st=ud55ktgf&raw=1" },
-        { name: "Alex Warren - Ordinary", url: "https://www.dropbox.com/scl/fi/lpcx92wv63wzcm6z56l7q/Alex-Warren-Ordinary.mp3?rlkey=pdxjo778t66ecrja08pfyij6k&st=zb53k17t&raw=1" },          
-        { name: "Eminem - You dont know", url: "https://www.dropbox.com/scl/fi/4y0lc0fi24e9yavn17psv/Eminem-you-dont-know.mp3.mp3?rlkey=zicb6spgqe3pv0gqnz3xc24zo&st=wy1w0icm&raw=1" },
-        { name: "The Sound of Silence – Rising to the Night", url: "https://www.dropbox.com/scl/fi/2y9zhx5zjsdxg3zljc2f9/sound-of-silence.mp3.mp3?rlkey=88zg0td3loy40uxmcm9rnk1jt&st=qty8093e&raw=1" },
-        { name: "Desireless - Voyage Voyage", url: "https://www.dropbox.com/scl/fi/cqqhzkv1ll1p09z7qgylp/Desireless-voyage-voyage.mp3.mp3?rlkey=hscvkehw7n7vvgi2im4rwhom7&st=2ldonj76&raw=1" }
+        { n: "Abraham-Mateo - BAI LALA", u: "https://www.dropbox.com/scl/fi/gw8940zfvm60ul7malxox/Abraham-Mateo-BAI-LALA.mp3?rlkey=puytwnkxllb6tmz35htfr8tmh&st=ud55ktgf&raw=1" },
+        { n: "Alex Warren - Ordinary", u: "https://www.dropbox.com/scl/fi/lpcx92wv63wzcm6z56l7q/Alex-Warren-Ordinary.mp3?rlkey=pdxjo778t66ecrja08pfyij6k&st=zb53k17t&raw=1" },
+        { n: "Eminem - You dont know", u: "https://www.dropbox.com/scl/fi/4y0lc0fi24e9yavn17psv/Eminem-you-dont-know.mp3.mp3?rlkey=zicb6spgqe3pv0gqnz3xc24zo&st=wy1w0icm&raw=1" },
+        { n: "The Sound of Silence", u: "https://www.dropbox.com/scl/fi/2y9zhx5zjsdxg3zljc2f9/sound-of-silence.mp3.mp3?rlkey=88zg0td3loy40uxmcm9rnk1jt&st=qty8093e&raw=1" },
+        { n: "Desireless - Voyage Voyage", u: "https://www.dropbox.com/scl/fi/cqqhzkv1ll1p09z7qgylp/Desireless-voyage-voyage.mp3.mp3?rlkey=hscvkehw7n7vvgi2im4rwhom7&st=2ldonj76&raw=1" }
     ];
+    let curr = 0;
+    const aud = document.getElementById('player-core');
+    const tit = document.getElementById('track-title');
 
-    let current = 0;
-    const audio = document.getElementById('main-audio');
-    const trackLabel = document.getElementById('track-name');
-
-    function loadTrack(i) {
-        audio.src = playlist[i].url;
-        trackLabel.innerText = "Tocando: " + playlist[i].name;
-        audio.play().catch(() => { trackLabel.innerText = "Clique no Player para iniciar"; });
+    function loadM(i) {
+        aud.src = playlist[i].u;
+        tit.innerText = "Tocando: " + playlist[i].n;
+        aud.play();
     }
-
-    audio.onended = () => { current = (current + 1) % playlist.length; loadTrack(current); };
-    function setVol(v) { audio.volume = v; }
-    function togglePlayer() {
-        const p = document.getElementById('music-container');
-        if(p.style.display === "block") { p.style.display = "none"; }
-        else { p.style.display = "block"; if(!audio.src) loadTrack(0); }
+    aud.onended = () => { curr = (curr + 1) % playlist.length; loadM(curr); };
+    function setV(v) { aud.volume = v; }
+    function toggleMusic() {
+        const s = document.getElementById('player-section');
+        if(s.style.display === "block") { s.style.display = "none"; }
+        else { s.style.display = "block"; if(!aud.src) loadM(0); }
     }
 
     // --- STATUS ---
-    async function updateStatus() {
+    async function getStat() {
         try {
-            const res = await fetch('https://illuxat.com/api/online/Gabr');
-            const json = await res.json();
-            const isOnline = json.data?.status?.toLowerCase() === 'online';
-            document.getElementById('status-dot').style.backgroundColor = isOnline ? "#22c55e" : "#ef4444";
+            const r = await fetch('https://illuxat.com/api/online/Gabr');
+            const j = await r.json();
+            const on = j.data?.status?.toLowerCase() === 'online';
+            document.getElementById('status-dot').style.backgroundColor = on ? "#22c55e" : "#ef4444";
         } catch(e) { document.getElementById('status-dot').style.backgroundColor = "#9e9e9e"; }
     }
-    updateStatus(); setInterval(updateStatus, 60000);
+    getStat(); setInterval(getStat, 60000);
 
     // --- SEGURANÇA ---
-    function secAlert() {
-        const a = document.getElementById('security-alert');
-        a.classList.add('show-alert');
-        setTimeout(() => a.classList.remove('show-alert'), 2000);
+    function sAlert() {
+        const a = document.getElementById('sec-msg');
+        a.classList.add('show-sec');
+        setTimeout(() => a.classList.remove('show-sec'), 2000);
     }
-    document.addEventListener('contextmenu', e => { e.preventDefault(); secAlert(); });
+    document.addEventListener('contextmenu', e => { e.preventDefault(); sAlert(); });
     document.addEventListener('keydown', e => {
-        if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S' || e.key === 'i' || e.key === 'I' || e.key === 'j' || e.key === 'J')) {
-            e.preventDefault(); secAlert();
+        if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
+            e.preventDefault(); sAlert();
         }
     });
     document.addEventListener('selectstart', e => e.preventDefault());
