@@ -191,7 +191,7 @@
 
         .gallery-grid img:hover { transform: scale(1.1); border: 2px solid #e73c7e; }
 
-        /* PLAYER MUSICA ATUALIZADO */
+        /* PLAYER MUSICA */
         .player-box {
             background: rgba(255, 255, 255, 0.05);
             padding: 25px;
@@ -286,6 +286,7 @@
 
         <div class="widget widget-bottom" onclick="changeQuote()">
             <h3 id="quote">"O segredo da criatividade é saber esconder suas fontes."</h3>
+            <span style="font-size: 10px; opacity: 0.5;">(Clique para mudar a frase)</span>
         </div>
 
         <section id="perfil" class="section">
@@ -365,6 +366,18 @@
             document.getElementById('clock').innerText = now.toLocaleTimeString();
         }
         setInterval(updateClock, 1000);
+
+        // --- SISTEMA DE FRASES ---
+        const quotes = [
+            "\"O segredo da criatividade é saber esconder suas fontes.\"",
+            "\"A vida é curta demais para ter um perfil feio.\"",
+            "\"Foco, força e muito brilho.\"",
+            "\"Espaço reservado para grandes ideias.\""
+        ];
+        function changeQuote() {
+            const q = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quote').innerText = q;
+        }
 
         function enterProfile() {
             document.getElementById('splash-screen').style.opacity = '0';
