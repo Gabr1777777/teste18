@@ -2,76 +2,71 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Perfil Personalizado</title>
+    <title>Perfil Gabr - XatSpace</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* CONFIGURAÇÕES GERAIS E BLOQUEIOS */
+        /* CONFIGURAÇÕES GERAIS E BLOQUEIOS ESTRITOS */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            user-select: none; /* Bloqueia seleção */
-            -webkit-user-drag: none; /* Bloqueia arrastar imagens */
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         body {
             overflow: hidden;
             background: #000;
             color: white;
+            height: 100vh;
+            width: 100vw;
         }
 
         .bg-glow {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0; width: 100vw; height: 100vh;
             background-image: url('https://i.imgur.com/4kRbv63.gif');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             z-index: -2;
         }
 
         .overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
 
         /* TELA DE ENTRADA */
         #splash-screen {
             position: fixed;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 100;
-            transition: opacity 0.8s ease;
+            z-index: 200;
+            background: rgba(0,0,0,0.8);
+            transition: opacity 1s;
         }
 
         .btn-entrar {
-            padding: 20px 60px;
-            font-size: 24px;
-            font-weight: 600;
+            padding: 25px 80px;
+            font-size: 28px;
+            font-weight: 800;
             color: white;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
-            animation: gradientAnim 5s ease infinite;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: transform 0.3s;
+            animation: gradientAnim 4s ease infinite;
+            box-shadow: 0 0 40px rgba(231, 60, 126, 0.5);
+            transition: 0.3s;
         }
 
-        .btn-entrar:hover { transform: scale(1.1); }
+        .btn-entrar:hover { transform: scale(1.15); box-shadow: 0 0 60px rgba(35, 213, 171, 0.8); }
 
         @keyframes gradientAnim {
             0% { background-position: 0% 50%; }
@@ -82,151 +77,165 @@
         /* LAYOUT PRINCIPAL */
         #main-content {
             display: none;
-            width: 100vw;
-            height: 100vh;
-            padding: 20px;
+            width: 100%; height: 100%;
+            position: relative;
         }
 
-        /* NAVEGAÇÃO */
+        /* NAVEGAÇÃO SUPERIOR */
         nav {
             position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 30px;
+            width: 100%;
             display: flex;
-            gap: 15px;
-            z-index: 10;
+            justify-content: center;
+            gap: 20px;
+            z-index: 50;
         }
 
         nav button {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
+            padding: 12px 25px;
             color: white;
-            border-radius: 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.4s;
+        }
+
+        nav button:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
+
+        /* WIDGETS LATERAIS (PREENCHIMENTO DE ESPAÇO) */
+        .widget {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             cursor: pointer;
             transition: 0.3s;
         }
+        .widget:hover { background: rgba(255, 255, 255, 0.1); border-color: #23a6d5; }
 
-        nav button:hover { background: rgba(255, 255, 255, 0.3); }
+        .widget-left { top: 120px; left: 40px; width: 220px; }
+        .widget-right { top: 120px; right: 40px; width: 220px; }
+        .widget-bottom { bottom: 60px; left: 50%; transform: translateX(-50%); width: 60%; text-align: center; }
 
-        /* SEÇÕES */
+        /* SEÇÕES CENTRAIS */
         .section {
             display: none;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            animation: fadeIn 0.5s ease;
+            animation: slideUp 0.6s ease-out;
         }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         /* PERFIL */
         .profile-card {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 40px;
-            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 50px;
+            border-radius: 30px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .avatar-container {
             position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
+            width: 180px; height: 180px;
+            margin: 0 auto 25px;
         }
 
         .avatar {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             border-radius: 50%;
-            border: 4px solid #fff;
-            animation: float 4s ease-in-out infinite;
+            border: 5px solid #fff;
+            animation: float 3s ease-in-out infinite;
             object-fit: cover;
+            cursor: pointer;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
 
         #status-dot {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            z-index: 5;
+            bottom: 15px; right: 15px;
+            z-index: 10;
         }
 
-        /* GALERIA */
+        /* GALERIA INTERATIVA */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(3, 150px);
-            gap: 15px;
+            grid-template-columns: repeat(3, 180px);
+            gap: 20px;
         }
 
         .gallery-grid img {
-            width: 150px;
-            height: 150px;
+            width: 180px; height: 180px;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: 0.4s;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
         }
 
         .gallery-grid img:hover {
-            transform: scale(1.05) rotate(2deg);
-            filter: brightness(1.2);
+            transform: scale(1.1) rotate(-3deg);
+            border-color: #e73c7e;
+            box-shadow: 0 10px 30px rgba(231, 60, 126, 0.4);
         }
 
-        /* PLAYER MUSICA */
-        .player {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
+        /* PLAYER DE MÚSICA */
+        .player-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 25px;
             text-align: center;
-            width: 300px;
+            width: 350px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .vol-btn {
-            background: #fff;
-            color: #000;
+        .btn-action {
+            background: white;
+            color: black;
             border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 10px 15px;
+            border-radius: 50px;
             cursor: pointer;
-            margin-top: 10px;
+            margin: 5px;
+            font-weight: bold;
+            transition: 0.2s;
         }
+        .btn-action:hover { background: #23a6d5; color: white; }
 
-        /* ALERTA DE SEGURANÇA */
+        /* ALERTAS E SEGURANÇA */
         #security-alert {
             position: fixed;
-            bottom: -50px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: -60px; left: 50%; transform: translateX(-50%);
             background: linear-gradient(90deg, #e73c7e, #23a6d5);
-            padding: 10px 30px;
-            border-radius: 5px;
-            transition: bottom 0.5s;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             z-index: 1000;
         }
 
-        /* LIGHTBOX SIMPLES PARA ZOOM */
         #lightbox {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 200;
-            justify-content: center;
-            align-items: center;
+            background: rgba(0,0,0,0.95);
+            z-index: 300;
+            justify-content: center; align-items: center;
+            cursor: zoom-out;
         }
 
-        #lightbox img { max-width: 80%; max-height: 80%; border-radius: 10px; }
+        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 15px; border: 3px solid white; }
     </style>
 </head>
 <body oncontextmenu="return showAlert();">
@@ -235,34 +244,55 @@
     <div class="overlay"></div>
 
     <div id="splash-screen">
-        <button class="btn-entrar" onclick="enterProfile()">ENTRAR</button>
+        <button class="btn-entrar" onclick="enterProfile()">ENTRAR NO ESPAÇO</button>
     </div>
 
     <div id="main-content">
+        
         <nav>
-            <button onclick="showSection('inicio')">Início</button>
-            <button onclick="showSection('perfil')">Perfil</button>
-            <button onclick="showSection('galeria')">Galeria</button>
-            <button onclick="showSection('musica')">Música</button>
+            <button onclick="showSection('inicio')">INÍCIO</button>
+            <button onclick="showSection('perfil')">MEU PERFIL</button>
+            <button onclick="showSection('galeria')">GALERIA</button>
+            <button onclick="showSection('musica')">PLAYER</button>
         </nav>
 
+        <div class="widget widget-left" onclick="alert('Hora de brilhar!')">
+            <h4 style="color: #23d5ab;">Local Time</h4>
+            <div id="clock" style="font-size: 24px; font-weight: bold;">00:00:00</div>
+            <p style="font-size: 12px; opacity: 0.7;">São Paulo, BR</p>
+        </div>
+
+        <div class="widget widget-right" onclick="alert('Sigam-me para novidades!')">
+            <h4 style="color: #e73c7e;">Social Hub</h4>
+            <p style="margin-top: 10px;">✨ Xat.com/Gabr</p>
+            <p>📸 @Instagram</p>
+            <p>🐦 @Twitter</p>
+        </div>
+
+        <div class="widget widget-bottom" onclick="changeQuote()">
+            <h3 id="quote">"O segredo da criatividade é saber esconder suas fontes."</h3>
+            <span style="font-size: 10px; opacity: 0.5;">(Clique para mudar a frase)</span>
+        </div>
+
         <section id="inicio" class="section" style="display: flex;">
-            <h1>Bem-vindo ao meu XatSpace</h1>
-            <p>Clique nos botões acima para navegar</p>
+            <h1 style="font-size: 4rem; text-shadow: 0 0 20px #23a6d5;">GABR</h1>
+            <p style="letter-spacing: 5px; opacity: 0.8;">BEM-VINDO AO MEU MUNDO DIGITAL</p>
         </section>
 
         <section id="perfil" class="section">
             <div class="profile-card">
                 <div class="avatar-container">
-                    <img src="https://i.imgur.com/YDKnxJi.jpeg" class="avatar" alt="Perfil">
-                    <div id="status-dot" title="Verificando status..."></div>
+                    <img src="https://i.imgur.com/YDKnxJi.jpeg" class="avatar" title="Clique para um oi!">
+                    <div id="status-dot"></div>
                 </div>
-                <h2>Gabr</h2>
-                <hr style="margin: 15px 0; opacity: 0.2;">
-                <p><b>Data:</b> 14 de Abril</p>
-                <p><b>Signo:</b> Áries</p>
-                <p><b>País:</b> Brasil</p>
-                <p><b>Idioma:</b> Português</p>
+                <h2>Gabr Personal</h2>
+                <div style="margin: 20px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: left;">
+                    <div>📅 <b>Nasc:</b> 14/04</div>
+                    <div>♈ <b>Signo:</b> Áries</div>
+                    <div>🇧🇷 <b>País:</b> Brasil</div>
+                    <div>🗣️ <b>Ling:</b> PT/ES</div>
+                </div>
+                <button class="btn-action" style="width: 100%;" onclick="alert('Pedido enviado!')">ADICIONAR NO XAT</button>
             </div>
         </section>
 
@@ -273,38 +303,65 @@
                 <img src="https://i.imgur.com/HCn75BA.jpeg" onclick="openZoom(this.src)">
                 <img src="https://i.imgur.com/QvXRzEF.jpeg" onclick="openZoom(this.src)">
                 <img src="https://i.imgur.com/0h6IQIZ.jpeg" onclick="openZoom(this.src)">
+                <img src="https://i.imgur.com/YDKnxJi.jpeg" onclick="openZoom(this.src)">
             </div>
         </section>
 
         <section id="musica" class="section">
-            <div class="player">
-                <h3 id="track-name">Música</h3>
-                <audio id="audio-player"></audio>
-                <div style="margin-top: 15px;">
-                    <button class="vol-btn" onclick="prevTrack()">⏮</button>
-                    <button class="vol-btn" onclick="togglePlay()" id="play-btn">▶ Play</button>
-                    <button class="vol-btn" onclick="nextTrack()">⏭</button>
+            <div class="player-box">
+                <div style="background: #222; height: 150px; border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
+                    <div id="visualizer" style="display: flex; gap: 3px;">
+                        <div style="width: 5px; height: 40px; background: #e73c7e; animation: pulse 1s infinite alternate;"></div>
+                        <div style="width: 5px; height: 60px; background: #23a6d5; animation: pulse 0.8s infinite alternate;"></div>
+                        <div style="width: 5px; height: 30px; background: #23d5ab; animation: pulse 1.2s infinite alternate;"></div>
+                    </div>
                 </div>
-                <button class="vol-btn" onclick="lowerVolume()">Diminuir Volume</button>
+                <h3 id="track-name" style="margin-bottom: 10px;">Carregando...</h3>
+                <audio id="audio-player"></audio>
+                <div style="margin-bottom: 15px;">
+                    <button class="btn-action" onclick="prevTrack()">⏮</button>
+                    <button class="btn-action" onclick="togglePlay()" id="play-btn">▶</button>
+                    <button class="btn-action" onclick="nextTrack()">⏭</button>
+                </div>
+                <button class="btn-action" onclick="lowerVolume()" style="background: transparent; color: gray; font-size: 11px;">DIMINUIR VOLUME</button>
             </div>
         </section>
     </div>
 
     <div id="lightbox" onclick="this.style.display='none'">
-        <img id="zoom-img">
+        <img id="zoom-img" src="">
     </div>
 
-    <div id="security-alert">Copyright - Acesso Proibido</div>
+    <div id="security-alert">Copyright © Gabr - Acesso Proibido</div>
 
     <script>
-        // --- LÓGICA DE NAVEGAÇÃO ---
+        // --- RELÓGIO ---
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+        setInterval(updateClock, 1000);
+
+        // --- FRASES ---
+        const quotes = [
+            "\"O segredo da criatividade é saber esconder suas fontes.\"",
+            "\"A vida é curta demais para ter um perfil feio.\"",
+            "\"Foco, força e muito brilho.\"",
+            "\"Espaço reservado para grandes ideias.\""
+        ];
+        function changeQuote() {
+            const q = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quote').innerText = q;
+        }
+
+        // --- NAVEGAÇÃO ---
         function enterProfile() {
             document.getElementById('splash-screen').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('splash-screen').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
                 startMusic();
-            }, 800);
+            }, 1000);
         }
 
         function showSection(id) {
@@ -312,7 +369,7 @@
             document.getElementById(id).style.display = 'flex';
         }
 
-        // --- LÓGICA DE STATUS XAT ---
+        // --- STATUS XAT ---
         async function updateStatus() {
             try {
                 const res = await fetch('https://illuxat.com/api/online/Gabr');
@@ -320,11 +377,8 @@
                 const dot = document.getElementById('status-dot');
                 const isOnline = json.data?.status?.toLowerCase() === 'online';
                 
-                dot.style.width = "20px";
-                dot.style.height = "20px";
-                dot.style.borderRadius = "50%";
-                dot.style.border = "3px solid white";
-                dot.style.boxShadow = "0 2px 4px rgba(0,0,0,0.2)";
+                dot.style.width = "25px"; dot.style.height = "25px";
+                dot.style.borderRadius = "50%"; dot.style.border = "4px solid white";
                 
                 if (isOnline) {
                     dot.style.backgroundColor = "#22c55e";
@@ -340,48 +394,33 @@
         updateStatus();
         setInterval(updateStatus, 60000);
 
-        // --- PLAYER DE MÚSICA ---
+        // --- MUSICA ---
         const playlist = [
             { name: "Abraham-Mateo - BAI LALA", url: "https://www.dropbox.com/scl/fi/gw8940zfvm60ul7malxox/Abraham-Mateo-BAI-LALA.mp3?rlkey=puytwnkxllb6tmz35htfr8tmh&st=ud55ktgf&raw=1" },
             { name: "Alex Warren - Ordinary", url: "https://www.dropbox.com/scl/fi/lpcx92wv63wzcm6z56l7q/Alex-Warren-Ordinary.mp3?rlkey=pdxjo778t66ecrja08pfyij6k&st=zb53k17t&raw=1" },          
             { name: "Eminem - You dont know", url: "https://www.dropbox.com/scl/fi/4y0lc0fi24e9yavn17psv/Eminem-you-dont-know.mp3.mp3?rlkey=zicb6spgqe3pv0gqnz3xc24zo&st=wy1w0icm&raw=1" },
-            { name: "The Sound of Silence", url: "https://www.dropbox.com/scl/fi/2y9zhx5zjsdxg3zljc2f9/sound-of-silence.mp3.mp3?rlkey=88zg0td3loy40uxmcm9rnk1jt&st=qty8093e&raw=1" },
+            { name: "Rising to the Night", url: "https://www.dropbox.com/scl/fi/2y9zhx5zjsdxg3zljc2f9/sound-of-silence.mp3.mp3?rlkey=88zg0td3loy40uxmcm9rnk1jt&st=qty8093e&raw=1" },
             { name: "Desireless - Voyage Voyage", url: "https://www.dropbox.com/scl/fi/cqqhzkv1ll1p09z7qgylp/Desireless-voyage-voyage.mp3.mp3?rlkey=hscvkehw7n7vvgi2im4rwhom7&st=2ldonj76&raw=1" }
         ];
 
         let currentTrack = 0;
         const audio = document.getElementById('audio-player');
         
-        function loadTrack(index) {
-            audio.src = playlist[index].url;
-            document.getElementById('track-name').innerText = playlist[index].name;
+        function loadTrack(idx) {
+            audio.src = playlist[idx].url;
+            document.getElementById('track-name').innerText = playlist[idx].name;
         }
 
-        function startMusic() {
-            loadTrack(currentTrack);
-            audio.play();
-        }
+        function startMusic() { loadTrack(currentTrack); audio.play(); }
 
         function togglePlay() {
-            if(audio.paused) audio.play(); else audio.pause();
+            if(audio.paused) { audio.play(); document.getElementById('play-btn').innerText = "⏸"; }
+            else { audio.pause(); document.getElementById('play-btn').innerText = "▶"; }
         }
 
-        function nextTrack() {
-            currentTrack = (currentTrack + 1) % playlist.length;
-            loadTrack(currentTrack);
-            audio.play();
-        }
-
-        function prevTrack() {
-            currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
-            loadTrack(currentTrack);
-            audio.play();
-        }
-
-        function lowerVolume() {
-            if(audio.volume > 0.1) audio.volume -= 0.1;
-        }
-
+        function nextTrack() { currentTrack = (currentTrack + 1) % playlist.length; loadTrack(currentTrack); audio.play(); }
+        function prevTrack() { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(currentTrack); audio.play(); }
+        function lowerVolume() { if(audio.volume > 0.1) audio.volume -= 0.1; }
         audio.onended = () => nextTrack();
 
         // --- GALERIA ZOOM ---
@@ -393,17 +432,26 @@
         // --- SEGURANÇA ---
         function showAlert() {
             const alertBox = document.getElementById('security-alert');
-            alertBox.style.bottom = '20px';
-            setTimeout(() => { alertBox.style.bottom = '-50px'; }, 2000);
+            alertBox.style.bottom = '30px';
+            setTimeout(() => { alertBox.style.bottom = '-60px'; }, 2000);
             return false;
         }
 
         document.onkeydown = function(e) {
-            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73)) {
+            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73 || e.keyCode === 123)) {
                 showAlert();
                 return false;
             }
         };
+
+        // Bloqueia arrastar imagens
+        document.querySelectorAll('img').forEach(img => {
+            img.onmousedown = (e) => e.preventDefault();
+        });
     </script>
+
+    <style>
+        @keyframes pulse { to { height: 10px; opacity: 0.5; } }
+    </style>
 </body>
 </html>
