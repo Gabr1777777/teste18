@@ -2,143 +2,408 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Player Boteco Premium</title>
+    <title>Perfil Personalizado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            background: url('seu-fundo-rural.jpg') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        /* CONFIGURAÇÕES GERAIS E BLOQUEIOS */
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            user-select: none; /* Bloqueia seleção */
+            -webkit-user-drag: none; /* Bloqueia arrastar imagens */
         }
 
-        /* Container Principal com efeito Glassmorphism */
-        .player-container {
-            width: 350px;
-            background: rgba(30, 25, 20, 0.9);
-            border-radius: 25px;
-            padding: 20px;
-            text-align: center;
+        body {
+            overflow: hidden;
+            background: #000;
             color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .header-title {
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://i.imgur.com/4kRbv63.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -2;
         }
 
-        /* Imagem da Capa */
-        .cover-art {
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            border-radius: 15px;
-            margin-bottom: 20px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
         }
 
-        .track-info {
-            margin-bottom: 20px;
-        }
-
-        .artist-name { font-size: 14px; color: #ccc; }
-        .song-title { font-size: 18px; font-weight: bold; margin: 5px 0; }
-        .listeners { font-size: 12px; color: #888; }
-
-        /* Controles */
-        .controls {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-
-        .play-btn {
-            background: white;
-            color: black;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .volume-slider {
-            width: 50%;
-            cursor: pointer;
-        }
-
-        .volume-text { font-size: 12px; margin-top: 5px; text-align: right; }
-
-        /* Barras de frequência (animação) */
-        .visualizer {
+        /* TELA DE ENTRADA */
+        #splash-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
-            gap: 3px;
-            margin-top: 20px;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 0.8s ease;
         }
 
-        .bar {
-            width: 4px;
-            height: 20px;
-            background: white;
-            animation: bounce 1s infinite ease-in-out;
+        .btn-entrar {
+            padding: 20px 60px;
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientAnim 5s ease infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
         }
 
-        @keyframes bounce {
-            0%, 100% { height: 10px; }
-            50% { height: 25px; }
+        .btn-entrar:hover { transform: scale(1.1); }
+
+        @keyframes gradientAnim {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
+
+        /* LAYOUT PRINCIPAL */
+        #main-content {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        /* NAVEGAÇÃO */
+        nav {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        nav button {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        nav button:hover { background: rgba(255, 255, 255, 0.3); }
+
+        /* SEÇÕES */
+        .section {
+            display: none;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* PERFIL */
+        .profile-card {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 400px;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            animation: float 4s ease-in-out infinite;
+            object-fit: cover;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        #status-dot {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 5;
+        }
+
+        /* GALERIA */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 150px);
+            gap: 15px;
+        }
+
+        .gallery-grid img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.05) rotate(2deg);
+            filter: brightness(1.2);
+        }
+
+        /* PLAYER MUSICA */
+        .player {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .vol-btn {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* ALERTA DE SEGURANÇA */
+        #security-alert {
+            position: fixed;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #e73c7e, #23a6d5);
+            padding: 10px 30px;
+            border-radius: 5px;
+            transition: bottom 0.5s;
+            z-index: 1000;
+        }
+
+        /* LIGHTBOX SIMPLES PARA ZOOM */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox img { max-width: 80%; max-height: 80%; border-radius: 10px; }
     </style>
 </head>
-<body>
+<body oncontextmenu="return showAlert();">
 
-<div class="player-container">
-    <div class="header-title">BOTECO PREMIUM</div>
-    
-    <img src="https://via.placeholder.com/300x300" alt="Capa" class="cover-art">
+    <div class="bg-glow"></div>
+    <div class="overlay"></div>
 
-    <div class="track-info">
-        <div class="artist-name">Guilherme & Benuto & Luan Santana</div>
-        <div class="song-title">Quarto 67 Ao Vivo</div>
-        <div class="listeners">Ouvintes: 7</div>
+    <div id="splash-screen">
+        <button class="btn-entrar" onclick="enterProfile()">ENTRAR</button>
     </div>
 
-    <div class="controls">
-        <button class="play-btn" onclick="togglePlay()">
-            <span>▶</span> PLAY
-        </button>
-        <input type="range" class="volume-slider" min="0" max="100" value="100">
+    <div id="main-content">
+        <nav>
+            <button onclick="showSection('inicio')">Início</button>
+            <button onclick="showSection('perfil')">Perfil</button>
+            <button onclick="showSection('galeria')">Galeria</button>
+            <button onclick="showSection('musica')">Música</button>
+        </nav>
+
+        <section id="inicio" class="section" style="display: flex;">
+            <h1>Bem-vindo ao meu XatSpace</h1>
+            <p>Clique nos botões acima para navegar</p>
+        </section>
+
+        <section id="perfil" class="section">
+            <div class="profile-card">
+                <div class="avatar-container">
+                    <img src="https://i.imgur.com/YDKnxJi.jpeg" class="avatar" alt="Perfil">
+                    <div id="status-dot" title="Verificando status..."></div>
+                </div>
+                <h2>Gabr</h2>
+                <hr style="margin: 15px 0; opacity: 0.2;">
+                <p><b>Data:</b> 14 de Abril</p>
+                <p><b>Signo:</b> Áries</p>
+                <p><b>País:</b> Brasil</p>
+                <p><b>Idioma:</b> Português</p>
+            </div>
+        </section>
+
+        <section id="galeria" class="section">
+            <div class="gallery-grid">
+                <img src="https://i.imgur.com/LSZOs8Q.jpeg" onclick="openZoom(this.src)">
+                <img src="https://i.imgur.com/BGULIuI.jpeg" onclick="openZoom(this.src)">
+                <img src="https://i.imgur.com/HCn75BA.jpeg" onclick="openZoom(this.src)">
+                <img src="https://i.imgur.com/QvXRzEF.jpeg" onclick="openZoom(this.src)">
+                <img src="https://i.imgur.com/0h6IQIZ.jpeg" onclick="openZoom(this.src)">
+            </div>
+        </section>
+
+        <section id="musica" class="section">
+            <div class="player">
+                <h3 id="track-name">Música</h3>
+                <audio id="audio-player"></audio>
+                <div style="margin-top: 15px;">
+                    <button class="vol-btn" onclick="prevTrack()">⏮</button>
+                    <button class="vol-btn" onclick="togglePlay()" id="play-btn">▶ Play</button>
+                    <button class="vol-btn" onclick="nextTrack()">⏭</button>
+                </div>
+                <button class="vol-btn" onclick="lowerVolume()">Diminuir Volume</button>
+            </div>
+        </section>
     </div>
-    <div class="volume-text">Volume: 100%</div>
 
-    <div class="visualizer">
-        <div class="bar"></div>
-        <div class="bar" style="animation-delay: 0.2s"></div>
-        <div class="bar" style="animation-delay: 0.4s"></div>
-        <div class="bar" style="animation-delay: 0.6s"></div>
-        <div class="bar" style="animation-delay: 0.8s"></div>
+    <div id="lightbox" onclick="this.style.display='none'">
+        <img id="zoom-img">
     </div>
-</div>
 
-<audio id="audio-stream" src="SUA_URL_DE_STREAM_AQUI"></audio>
+    <div id="security-alert">Copyright - Acesso Proibido</div>
 
-<script>
-    const audio = document.getElementById('audio-stream');
-    function togglePlay() {
-        if (audio.paused) {
-            audio.play();
-        } else {
-            audio.pause();
+    <script>
+        // --- LÓGICA DE NAVEGAÇÃO ---
+        function enterProfile() {
+            document.getElementById('splash-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                startMusic();
+            }, 800);
         }
-    }
-</script>
 
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        // --- LÓGICA DE STATUS XAT ---
+        async function updateStatus() {
+            try {
+                const res = await fetch('https://illuxat.com/api/online/Gabr');
+                const json = await res.json();
+                const dot = document.getElementById('status-dot');
+                const isOnline = json.data?.status?.toLowerCase() === 'online';
+                
+                dot.style.width = "20px";
+                dot.style.height = "20px";
+                dot.style.borderRadius = "50%";
+                dot.style.border = "3px solid white";
+                dot.style.boxShadow = "0 2px 4px rgba(0,0,0,0.2)";
+                
+                if (isOnline) {
+                    dot.style.backgroundColor = "#22c55e";
+                    dot.title = "Online no xat";
+                } else {
+                    dot.style.backgroundColor = "#ef4444";
+                    dot.title = "Offline no xat";
+                }
+            } catch (e) {
+                document.getElementById('status-dot').style.backgroundColor = "#9e9e9e";
+            }
+        }
+        updateStatus();
+        setInterval(updateStatus, 60000);
+
+        // --- PLAYER DE MÚSICA ---
+        const playlist = [
+            { name: "Abraham-Mateo - BAI LALA", url: "https://www.dropbox.com/scl/fi/gw8940zfvm60ul7malxox/Abraham-Mateo-BAI-LALA.mp3?rlkey=puytwnkxllb6tmz35htfr8tmh&st=ud55ktgf&raw=1" },
+            { name: "Alex Warren - Ordinary", url: "https://www.dropbox.com/scl/fi/lpcx92wv63wzcm6z56l7q/Alex-Warren-Ordinary.mp3?rlkey=pdxjo778t66ecrja08pfyij6k&st=zb53k17t&raw=1" },          
+            { name: "Eminem - You dont know", url: "https://www.dropbox.com/scl/fi/4y0lc0fi24e9yavn17psv/Eminem-you-dont-know.mp3.mp3?rlkey=zicb6spgqe3pv0gqnz3xc24zo&st=wy1w0icm&raw=1" },
+            { name: "The Sound of Silence", url: "https://www.dropbox.com/scl/fi/2y9zhx5zjsdxg3zljc2f9/sound-of-silence.mp3.mp3?rlkey=88zg0td3loy40uxmcm9rnk1jt&st=qty8093e&raw=1" },
+            { name: "Desireless - Voyage Voyage", url: "https://www.dropbox.com/scl/fi/cqqhzkv1ll1p09z7qgylp/Desireless-voyage-voyage.mp3.mp3?rlkey=hscvkehw7n7vvgi2im4rwhom7&st=2ldonj76&raw=1" }
+        ];
+
+        let currentTrack = 0;
+        const audio = document.getElementById('audio-player');
+        
+        function loadTrack(index) {
+            audio.src = playlist[index].url;
+            document.getElementById('track-name').innerText = playlist[index].name;
+        }
+
+        function startMusic() {
+            loadTrack(currentTrack);
+            audio.play();
+        }
+
+        function togglePlay() {
+            if(audio.paused) audio.play(); else audio.pause();
+        }
+
+        function nextTrack() {
+            currentTrack = (currentTrack + 1) % playlist.length;
+            loadTrack(currentTrack);
+            audio.play();
+        }
+
+        function prevTrack() {
+            currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+            loadTrack(currentTrack);
+            audio.play();
+        }
+
+        function lowerVolume() {
+            if(audio.volume > 0.1) audio.volume -= 0.1;
+        }
+
+        audio.onended = () => nextTrack();
+
+        // --- GALERIA ZOOM ---
+        function openZoom(src) {
+            document.getElementById('zoom-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        // --- SEGURANÇA ---
+        function showAlert() {
+            const alertBox = document.getElementById('security-alert');
+            alertBox.style.bottom = '20px';
+            setTimeout(() => { alertBox.style.bottom = '-50px'; }, 2000);
+            return false;
+        }
+
+        document.onkeydown = function(e) {
+            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73)) {
+                showAlert();
+                return false;
+            }
+        };
+    </script>
 </body>
 </html>
