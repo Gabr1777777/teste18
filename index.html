@@ -23,6 +23,7 @@
     .main-wrapper {
         max-width: 900px;
         margin: 40px auto;
+        /* Estilo de "vidro" com opacidade e blur unificados */
         background: rgba(10, 10, 10, 0.85);
         backdrop-filter: blur(10px);
         border: 1px solid rgba(212, 175, 55, 0.3);
@@ -31,11 +32,10 @@
         overflow: hidden;
     }
 
-    /* --- CABEÇALHO COM TEXTO ANIMADO (FOTO REMOVIDA) --- */
+    /* --- CABEÇALHO UNIFICADO (FUNDO SOLID REMOVIDO) --- */
     .header-banner {
         height: 200px;
-        background: linear-gradient(to bottom, transparent, rgba(10,10,10,1)),
-                    #0a0a0a; /* Fundo preto sólido no lugar da foto */
+        /* Removida a cor sólida; agora usa o fundo herdado do .main-wrapper */
         position: relative;
         border-bottom: 2px solid #d4af37;
         /* Centralização total para o texto preencher o espaço */
@@ -45,7 +45,7 @@
         overflow: hidden;
     }
 
-    /* ANIMAÇÃO DO GRADIENTE DO TEXTO */
+    /* ANIMAÇÃO DO GRADIENTE DO TEXTO (MANTIDA) */
     @keyframes textGradient {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
@@ -53,7 +53,7 @@
     }
 
     .header-text {
-        font-size: 80px; /* Aumentado para preencher o retângulo */
+        font-size: 80px; 
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: -2px;
@@ -70,7 +70,7 @@
         width: 100%;
     }
 
-    /* --- ANIMAÇÕES DA FOTO DE PERFIL (FLUTUANTE E BRILHO) - MANTIDAS --- */
+    /* --- ANIMAÇÕES DA FOTO DE PERFIL (FLUTUANTE E BRILHO) - RESTAURADAS --- */
     @keyframes floatAvatar {
         0% { transform: translateY(0px); }
         50% { transform: translateY(-10px); }
