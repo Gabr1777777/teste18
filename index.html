@@ -31,17 +31,18 @@
         overflow: hidden;
     }
 
-    /* --- CABEÇALHO COM TEXTO ANIMADO --- */
+    /* --- CABEÇALHO COM TEXTO ANIMADO (FOTO REMOVIDA) --- */
     .header-banner {
         height: 200px;
-        background: linear-gradient(to bottom, transparent, rgba(10,10,10,1)), 
-                    url('https://i.imgur.com/HCn75BA.jpeg') center/cover;
+        background: linear-gradient(to bottom, transparent, rgba(10,10,10,1)),
+                    #0a0a0a; /* Fundo preto sólido no lugar da foto */
         position: relative;
         border-bottom: 2px solid #d4af37;
-        /* Centralização do texto */
+        /* Centralização total para o texto preencher o espaço */
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
     }
 
     /* ANIMAÇÃO DO GRADIENTE DO TEXTO */
@@ -52,17 +53,21 @@
     }
 
     .header-text {
-        font-size: 40px;
-        font-weight: bold;
+        font-size: 80px; /* Aumentado para preencher o retângulo */
+        font-weight: 900;
         text-transform: uppercase;
-        letter-spacing: 2px;
+        letter-spacing: -2px;
+        text-align: center;
+        line-height: 1;
+        
         /* Gradiente nas cores da página (dourado/preto) */
-        background: linear-gradient(270deg, #d4af37, #ffdf7e, #0a0a0a, #d4af37);
+        background: linear-gradient(270deg, #d4af37, #ffdf7e, #1a1a1a, #d4af37);
         background-size: 600% 600%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         animation: textGradient 6s ease infinite;
-        text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        width: 100%;
     }
 
     /* --- ANIMAÇÕES DA FOTO DE PERFIL (FLUTUANTE E BRILHO) - MANTIDAS --- */
@@ -213,7 +218,7 @@
 
 <div class="main-wrapper">
     <div class="header-banner">
-        <div class="header-text">nome aqui</div>
+        <div class="header-text">Nome Aqui</div>
         <div class="avatar-box">
             <div class="avatar-img"></div>
             <div id="status-dot" style="width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; background-color: #9e9e9e; margin: 10px auto;" title="Verificando..."></div>
