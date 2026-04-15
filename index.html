@@ -106,7 +106,7 @@
 
         nav button:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
 
-        /* WIDGETS LATERAIS (PREENCHIMENTO DE ESPAÇO) */
+        /* WIDGETS LATERAIS */
         .widget {
             position: absolute;
             background: rgba(0, 0, 0, 0.4);
@@ -114,14 +114,24 @@
             padding: 20px;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
             transition: 0.3s;
         }
         .widget:hover { background: rgba(255, 255, 255, 0.1); border-color: #23a6d5; }
 
-        .widget-left { top: 120px; left: 40px; width: 220px; }
+        .widget-left { top: 120px; left: 40px; width: 220px; cursor: pointer; }
         .widget-right { top: 120px; right: 40px; width: 220px; }
-        .widget-bottom { bottom: 60px; left: 50%; transform: translateX(-50%); width: 60%; text-align: center; }
+        
+        .widget-right a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .widget-right a:hover { color: #e73c7e; transform: translateX(5px); }
+
+        .widget-bottom { bottom: 60px; left: 50%; transform: translateX(-50%); width: 60%; text-align: center; cursor: pointer; }
 
         /* SEÇÕES CENTRAIS */
         .section {
@@ -221,7 +231,7 @@
             padding: 15px 40px;
             border-radius: 10px;
             font-weight: bold;
-            transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: 0.5s;
             z-index: 1000;
         }
 
@@ -248,7 +258,6 @@
     </div>
 
     <div id="main-content">
-        
         <nav>
             <button onclick="showSection('inicio')">INÍCIO</button>
             <button onclick="showSection('perfil')">MEU PERFIL</button>
@@ -262,11 +271,12 @@
             <p style="font-size: 12px; opacity: 0.7;">São Paulo, BR</p>
         </div>
 
-        <div class="widget widget-right" onclick="alert('Sigam-me para novidades!')">
-            <h4 style="color: #e73c7e;">Social Hub</h4>
-            <p style="margin-top: 10px;">✨ Xat.com/Gabr</p>
-            <p>📸 @Instagram</p>
-            <p>🐦 @Twitter</p>
+        <div class="widget widget-right">
+            <h4 style="color: #e73c7e;">Xat Comunidade</h4>
+            <a href="https://xat.com/gabr" target="_blank">✨ xat.com/gabr</a>
+            <a href="https://xat.com/tuga" target="_blank">🇵🇹 Xat TUGA</a>
+            <a href="https://xat.com/butecopremium" target="_blank">🍻 Xat Buteco</a>
+            <a href="https://xat.com/trade" target="_blank">🔄 Xat Trade</a>
         </div>
 
         <div class="widget widget-bottom" onclick="changeQuote()">
@@ -282,7 +292,7 @@
         <section id="perfil" class="section">
             <div class="profile-card">
                 <div class="avatar-container">
-                    <img src="https://i.imgur.com/YDKnxJi.jpeg" class="avatar" title="Clique para um oi!">
+                    <img src="https://i.imgur.com/YDKnxJi.jpeg" class="avatar">
                     <div id="status-dot"></div>
                 </div>
                 <h2>Gabr Personal</h2>
@@ -292,7 +302,7 @@
                     <div>🇧🇷 <b>País:</b> Brasil</div>
                     <div>🗣️ <b>Ling:</b> PT/ES</div>
                 </div>
-                <button class="btn-action" style="width: 100%;" onclick="alert('Pedido enviado!')">ADICIONAR NO XAT</button>
+                <button class="btn-action" style="width: 100%;" onclick="window.open('https://xat.com/gabr')">ADICIONAR NO XAT</button>
             </div>
         </section>
 
@@ -309,21 +319,20 @@
 
         <section id="musica" class="section">
             <div class="player-box">
-                <div style="background: #222; height: 150px; border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
-                    <div id="visualizer" style="display: flex; gap: 3px;">
-                        <div style="width: 5px; height: 40px; background: #e73c7e; animation: pulse 1s infinite alternate;"></div>
-                        <div style="width: 5px; height: 60px; background: #23a6d5; animation: pulse 0.8s infinite alternate;"></div>
-                        <div style="width: 5px; height: 30px; background: #23d5ab; animation: pulse 1.2s infinite alternate;"></div>
-                    </div>
+                <div style="background: #222; height: 120px; border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                        <div style="width: 6px; height: 40px; background: #e73c7e; animation: pulse 1s infinite alternate;"></div>
+                        <div style="width: 6px; height: 70px; background: #23a6d5; animation: pulse 0.8s infinite alternate;"></div>
+                        <div style="width: 6px; height: 30px; background: #23d5ab; animation: pulse 1.2s infinite alternate;"></div>
+                        <div style="width: 6px; height: 55px; background: #e73c7e; animation: pulse 0.9s infinite alternate;"></div>
                 </div>
-                <h3 id="track-name" style="margin-bottom: 10px;">Carregando...</h3>
+                <h3 id="track-name">Carregando...</h3>
                 <audio id="audio-player"></audio>
                 <div style="margin-bottom: 15px;">
                     <button class="btn-action" onclick="prevTrack()">⏮</button>
                     <button class="btn-action" onclick="togglePlay()" id="play-btn">▶</button>
                     <button class="btn-action" onclick="nextTrack()">⏭</button>
                 </div>
-                <button class="btn-action" onclick="lowerVolume()" style="background: transparent; color: gray; font-size: 11px;">DIMINUIR VOLUME</button>
+                <button class="btn-action" onclick="lowerVolume()" style="font-size: 10px; background: #eee;">VOL -</button>
             </div>
         </section>
     </div>
@@ -335,26 +344,17 @@
     <div id="security-alert">Copyright © Gabr - Acesso Proibido</div>
 
     <script>
-        // --- RELÓGIO ---
         function updateClock() {
             const now = new Date();
             document.getElementById('clock').innerText = now.toLocaleTimeString();
         }
         setInterval(updateClock, 1000);
 
-        // --- FRASES ---
-        const quotes = [
-            "\"O segredo da criatividade é saber esconder suas fontes.\"",
-            "\"A vida é curta demais para ter um perfil feio.\"",
-            "\"Foco, força e muito brilho.\"",
-            "\"Espaço reservado para grandes ideias.\""
-        ];
+        const quotes = ["\"Foco, força e muito brilho.\"", "\"A vida é curta demais para ter um perfil feio.\"", "\"Espaço reservado para grandes ideias.\"", "\"O segredo da criatividade é saber esconder suas fontes.\""];
         function changeQuote() {
-            const q = quotes[Math.floor(Math.random() * quotes.length)];
-            document.getElementById('quote').innerText = q;
+            document.getElementById('quote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
         }
 
-        // --- NAVEGAÇÃO ---
         function enterProfile() {
             document.getElementById('splash-screen').style.opacity = '0';
             setTimeout(() => {
@@ -369,35 +369,21 @@
             document.getElementById(id).style.display = 'flex';
         }
 
-        // --- STATUS XAT ---
         async function updateStatus() {
             try {
                 const res = await fetch('https://illuxat.com/api/online/Gabr');
                 const json = await res.json();
                 const dot = document.getElementById('status-dot');
                 const isOnline = json.data?.status?.toLowerCase() === 'online';
-                
-                dot.style.width = "25px"; dot.style.height = "25px";
-                dot.style.borderRadius = "50%"; dot.style.border = "4px solid white";
-                
-                if (isOnline) {
-                    dot.style.backgroundColor = "#22c55e";
-                    dot.title = "Online no xat";
-                } else {
-                    dot.style.backgroundColor = "#ef4444";
-                    dot.title = "Offline no xat";
-                }
-            } catch (e) {
-                document.getElementById('status-dot').style.backgroundColor = "#9e9e9e";
-            }
+                dot.style.width = "25px"; dot.style.height = "25px"; dot.style.borderRadius = "50%"; dot.style.border = "4px solid white";
+                dot.style.backgroundColor = isOnline ? "#22c55e" : "#ef4444";
+            } catch (e) { document.getElementById('status-dot').style.backgroundColor = "#9e9e9e"; }
         }
-        updateStatus();
-        setInterval(updateStatus, 60000);
+        updateStatus(); setInterval(updateStatus, 60000);
 
-        // --- MUSICA ---
         const playlist = [
             { name: "Abraham-Mateo - BAI LALA", url: "https://www.dropbox.com/scl/fi/gw8940zfvm60ul7malxox/Abraham-Mateo-BAI-LALA.mp3?rlkey=puytwnkxllb6tmz35htfr8tmh&st=ud55ktgf&raw=1" },
-            { name: "Alex Warren - Ordinary", url: "https://www.dropbox.com/scl/fi/lpcx92wv63wzcm6z56l7q/Alex-Warren-Ordinary.mp3?rlkey=pdxjo778t66ecrja08pfyij6k&st=zb53k17t&raw=1" },          
+            { name: "Alex Warren - Ordinary", url: "https://www.dropbox.com/scl/fi/lpcx92wv63wzcm6z56l7q/Alex-Warren-Ordinary.mp3?rlkey=pdxjo778t66ecrja08pfyij6k&st=zb53k17t&raw=1" },
             { name: "Eminem - You dont know", url: "https://www.dropbox.com/scl/fi/4y0lc0fi24e9yavn17psv/Eminem-you-dont-know.mp3.mp3?rlkey=zicb6spgqe3pv0gqnz3xc24zo&st=wy1w0icm&raw=1" },
             { name: "Rising to the Night", url: "https://www.dropbox.com/scl/fi/2y9zhx5zjsdxg3zljc2f9/sound-of-silence.mp3.mp3?rlkey=88zg0td3loy40uxmcm9rnk1jt&st=qty8093e&raw=1" },
             { name: "Desireless - Voyage Voyage", url: "https://www.dropbox.com/scl/fi/cqqhzkv1ll1p09z7qgylp/Desireless-voyage-voyage.mp3.mp3?rlkey=hscvkehw7n7vvgi2im4rwhom7&st=2ldonj76&raw=1" }
@@ -405,31 +391,16 @@
 
         let currentTrack = 0;
         const audio = document.getElementById('audio-player');
-        
-        function loadTrack(idx) {
-            audio.src = playlist[idx].url;
-            document.getElementById('track-name').innerText = playlist[idx].name;
-        }
-
-        function startMusic() { loadTrack(currentTrack); audio.play(); }
-
-        function togglePlay() {
-            if(audio.paused) { audio.play(); document.getElementById('play-btn').innerText = "⏸"; }
-            else { audio.pause(); document.getElementById('play-btn').innerText = "▶"; }
-        }
-
+        function loadTrack(idx) { audio.src = playlist[idx].url; document.getElementById('track-name').innerText = playlist[idx].name; }
+        function startMusic() { loadTrack(currentTrack); audio.play(); document.getElementById('play-btn').innerText = "⏸"; }
+        function togglePlay() { if(audio.paused) { audio.play(); document.getElementById('play-btn').innerText = "⏸"; } else { audio.pause(); document.getElementById('play-btn').innerText = "▶"; }}
         function nextTrack() { currentTrack = (currentTrack + 1) % playlist.length; loadTrack(currentTrack); audio.play(); }
         function prevTrack() { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(currentTrack); audio.play(); }
         function lowerVolume() { if(audio.volume > 0.1) audio.volume -= 0.1; }
         audio.onended = () => nextTrack();
 
-        // --- GALERIA ZOOM ---
-        function openZoom(src) {
-            document.getElementById('zoom-img').src = src;
-            document.getElementById('lightbox').style.display = 'flex';
-        }
+        function openZoom(src) { document.getElementById('zoom-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
 
-        // --- SEGURANÇA ---
         function showAlert() {
             const alertBox = document.getElementById('security-alert');
             alertBox.style.bottom = '30px';
@@ -439,19 +410,10 @@
 
         document.onkeydown = function(e) {
             if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73 || e.keyCode === 123)) {
-                showAlert();
-                return false;
+                showAlert(); return false;
             }
         };
-
-        // Bloqueia arrastar imagens
-        document.querySelectorAll('img').forEach(img => {
-            img.onmousedown = (e) => e.preventDefault();
-        });
     </script>
-
-    <style>
-        @keyframes pulse { to { height: 10px; opacity: 0.5; } }
-    </style>
+    <style> @keyframes pulse { to { height: 15px; opacity: 0.3; } } </style>
 </body>
 </html>
