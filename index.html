@@ -323,20 +323,20 @@
         function showLightboxImage(){const c=currentLightboxImages[currentLightboxIndex];document.getElementById('lightbox-img').src=c.url;document.getElementById('lightbox-caption').textContent=`${c.prefix}${c.num}`;}
 
         function changeView(v){
-            updateActiveNav(v);contentArea.style.opacity=0;
-            setTimeout(()=>{
-                if(v==='home'){pageTitle.textContent="Diseños";contentArea.innerHTML=viewHome;const m1=document.getElementById('gifs-submenu');if(m1&&m1.classList.contains('submenu-open'))toggleMenu('gifs');const m2=document.getElementById('pcback-submenu');if(m2&&m2.classList.contains('submenu-open'))toggleMenu('pcback');}
-                else if(v.startsWith('gifs-')){openMenuIfClosed('gifs');const k=v.replace('gifs-','');const c=categoriesData[k];const t=c.marquee.replace(/[^a-zA-Z\s\-]/g,'').trim();pageTitle.innerHTML=`Galería <span class="text-gradient font-display tracking-widest ml-1 md:ml-2">${t}</span>`;contentArea.innerHTML=generateGallery(k);initLazyLoad();}
-                else if(v.startsWith('pcback-')){openMenuIfClosed('pcback');const c=categoriesData[v];const t=c.marquee.replace(/[^a-zA-Z\s\-]/g,'').trim();pageTitle.innerHTML=`Galería <span class="text-gradient font-display tracking-widest ml-1 md:ml-2">${t}</span>`;contentArea.innerHTML=generateGallery(v);initLazyLoad();}
-                else if(v==='fondo'){const c=categoriesData[v];const t=c.marquee.replace(/[^a-zA-Z\s\-]/g,'').trim();pageTitle.innerHTML=`Galería <span class="text-gradient font-display tracking-widest ml-1 md:ml-2">${t}</span>`;contentArea.innerHTML=generateGallery(v);initLazyLoad();}
-                contentArea.style.opacity=1;contentArea.style.transition='opacity 0.3s ease-in-out';
-            },150);
-        }
+            updateActiveNav(v);contentArea.style.opacity=0;
+            setTimeout(()=>{
+                if(v==='home'){pageTitle.textContent="Diseños";contentArea.innerHTML=viewHome;const m1=document.getElementById('gifs-submenu');if(m1&&m1.classList.contains('submenu-open'))toggleMenu('gifs');const m2=document.getElementById('pcback-submenu');if(m2&&m2.classList.contains('submenu-open'))toggleMenu('pcback');}
+                else if(v.startsWith('gifs-')){openMenuIfClosed('gifs');const k=v.replace('gifs-','');const c=categoriesData[k];const t=c.marquee.replace(/[^a-zA-Z\s\-]/g,'').trim();pageTitle.innerHTML=`Galería <span class="text-gradient font-display tracking-widest ml-1 md:ml-2">${t}</span>`;contentArea.innerHTML=generateGallery(k);initLazyLoad();}
+                else if(v.startsWith('pcback-')){openMenuIfClosed('pcback');const c=categoriesData[v];const t=c.marquee.replace(/[^a-zA-Z\s\-]/g,'').trim();pageTitle.innerHTML=`Galería <span class="text-gradient font-display tracking-widest ml-1 md:ml-2">${t}</span>`;contentArea.innerHTML=generateGallery(v);initLazyLoad();}
+                else if(v==='fondo'){const c=categoriesData[v];const t=c.marquee.replace(/[^a-zA-Z\s\-]/g,'').trim();pageTitle.innerHTML=`Galería <span class="text-gradient font-display tracking-widest ml-1 md:ml-2">${t}</span>`;contentArea.innerHTML=generateGallery(v);initLazyLoad();}
+                contentArea.style.opacity=1;contentArea.style.transition='opacity 0.3s ease-in-out';
+            },150);
+        }
 
-        document.addEventListener('DOMContentLoaded',()=>{
-            changeView('home');
-            (function(){const f=document.createElement('div');f.className='w-full py-4 md:py-6 text-center text-gray-700 text-[10px] md:text-xs font-semibold tracking-widest bg-dark-900 border-t border-dark-800 mt-auto select-none';f.innerText=atob('RGVzaWduIEJ5IE1hcnYgKDYxNjE2MSk=');document.getElementById('main-scroll-area').appendChild(f);})();
-        });
-    </script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            changeView('home');
+            // A função que injetava o rodapé foi removida daqui.
+        });
+    </script>
 </body>
 </html>
