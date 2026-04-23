@@ -1,3 +1,33 @@
+<script>
+    tailwind.config={
+        theme:{
+            extend:{
+                fontFamily:{
+                    sans:['Inter','sans-serif'],
+                    display:['Agbalumo','cursive']
+                },
+                colors:{
+                    dark:{900:'#18181b',800:'#27272a',700:'#3f3f46',600:'#52525b'},
+                    brand:{
+                        400:'#f472d0', 
+                        500:'#E330DB', 
+                        600:'#b521af'
+                    }
+                }
+            }
+        }
+    };
+</script>
+<style>
+    /* ... seu código anterior ... */
+    ::-webkit-scrollbar-thumb:hover {background:#E330DB;}
+    .card-hover:hover {
+        transform:translateY(-5px);
+        box-shadow:0 10px 25px -5px rgba(0,0,0,0.5);
+        border-color:#E330DB;
+    }
+    /* ... resto do código ... */
+</style>
 <!DOCTYPE html>
 <html lang="es">
 <head>
