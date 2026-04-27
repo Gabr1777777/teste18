@@ -379,8 +379,11 @@
             <button onclick="togglePlay()" id="play-pause-btn" class="w-10 h-10 rounded-full bg-brand-500 hover:bg-brand-600 flex items-center justify-center transition-all flex-shrink-0">
                 <i id="play-icon" class="ph ph-play fill text-white text-xl"></i>
             </button>
+            
             <div class="flex items-center gap-2 bg-dark-900/50 px-3 py-2 rounded-full w-full">
-                <i class="ph ph-speaker-high text-brand-400 text-sm"></i>
+                <button onclick="cycleVolume()" class="flex items-center justify-center">
+                    <i id="volume-icon" class="ph ph-speaker-high text-brand-400 text-sm"></i>
+                </button>
                 <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5" class="w-full accent-brand-500 h-1 bg-dark-600 rounded-lg appearance-none cursor-pointer">
             </div>
         </div>
@@ -400,18 +403,14 @@
     const playerCard = document.getElementById('player-card');
     const playIcon = document.getElementById('play-icon');
     const volumeSlider = document.getElementById('volume-slider');
+    const volumeIcon = document.getElementById('volume-icon');
 
     // Configuração inicial
     audio.volume = 0.5;
 
     function togglePlayerCard() {
-        if (playerCard.classList.contains('hidden')) {
-            playerCard.classList.remove('hidden');
-            playerCard.classList.add('flex');
-        } else {
-            playerCard.classList.add('hidden');
-            playerCard.classList.remove('flex');
-        }
+        playerCard.classList.toggle('hidden');
+        if (!playerCard.classList.contains('hidden')) playerCard.classList.add('flex');
     }
 
     function togglePlay() {
@@ -424,11 +423,35 @@
         }
     }
 
+    // Função para ciclar o volume (0 -> 0.5 -> 1)
+    function cycleVolume() {
+        if (audio.volume === 0.5) {
+            updateVolume(1); // Vai para 100%
+        } else if (audio.volume === 1) {
+            updateVolume(0); // Vai para 0%
+        } else {
+            updateVolume(0.5); // Qualquer outro valor (incluindo 0) vai para 50%
+        }
+    }
+
+    function updateVolume(value) {
+        audio.volume = value;
+        volumeSlider.value = value;
+        
+        // Atualiza o ícone conforme o volume
+        if (value == 0) {
+            volumeIcon.className = 'ph ph-speaker-x text-brand-400 text-sm';
+        } else if (value <= 0.5) {
+            volumeIcon.className = 'ph ph-speaker-low text-brand-400 text-sm';
+        } else {
+            volumeIcon.className = 'ph ph-speaker-high text-brand-400 text-sm';
+        }
+    }
+
     volumeSlider.addEventListener('input', (e) => {
-        audio.volume = e.target.value;
+        updateVolume(e.target.value);
     });
 
-    // Fecha ao clicar fora do player
     document.addEventListener('click', (e) => {
         const container = document.getElementById('music-player-container');
         if (!container.contains(e.target)) {
